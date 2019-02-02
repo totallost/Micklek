@@ -1,3 +1,9 @@
-div.col-sm {
-    background-color: red;
+
+
+.close-sidebar {
+    position: relative;
+    bottom: 0;
+    right: 0;
+    margin: 10px;
+    border-radius: 25px;
 }

@@ -2,7 +2,7 @@
 <div id="sidebar" class="{{collapsed}}">
   <app-order-panel></app-order-panel>
 </div>
-<div class="container mt-4" id="content">
+<div class="container mt-4 mb-4" id="content">
   <div class="container mt-4">
     <div class="row">
       <div class="col justify-content-center">
@@ -13,21 +13,19 @@
           <p>welcome dear customer!</p>
         </div>
         <div class="row justify-content-center">
-            <p>Here you can order our delicios products</p>
-        </div>
-        <div class="row">
-            <button class="btn btn-primery" (click)="tuggleSidebar()">open</button>
+          <p>Here you can order our delicios products</p>
         </div>
       </div>
     </div>
   </div>
-  <div class="container mt-2">
-      <div class="col">
-        <div *ngFor="let item of items" class="col-lg-2 col-md-3 cols-sm-6">
-          <app-item-card></app-item-card>
-        </div>
-      </div>
+</div>
+<br><br><br>
+<div class="container mt-4 items-container" style="clear:both">
+  <div class="col">
+    <div *ngFor="let item of items" class="item-cards">
+      <app-item-card [item]="item" (click)="addItemToOrder(item)"></app-item-card>
     </div>
+  </div>
 </div>
 
 

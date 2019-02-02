@@ -6,6 +6,9 @@ import { AppComponent } from './app.component';
 import { OrderPanelComponent } from './order-panel/order-panel.component';
 import { NavComponent } from './nav/nav.component';
 import { ItemCardComponent } from './item-card/item-card.component';
+import { ItemService } from './services/item.service';
+import { HttpClientModule } from '@angular/common/http';
+import { OrderService } from './services/order.service';
 
 @NgModule({
   declarations: [
@@ -16,9 +19,13 @@ import { ItemCardComponent } from './item-card/item-card.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    ItemService,
+    OrderService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

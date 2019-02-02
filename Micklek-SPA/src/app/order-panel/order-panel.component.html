@@ -1,13 +1,22 @@
 <div class="container">
-  <div class="row">
-    <div class="col-sm">
-      One of three columns
-    </div>
-    <div class="col-sm">
-      One of three columns
-    </div>
-    <div class="col-sm">
-      One of three columns
-    </div>
-  </div>
+  <table class="table" *ngIf="orderLines">
+    <thead>
+      <th scope="col">#</th>
+      <th scope="col">Item</th>
+      <th scope="col">Amount</th>
+      <th scope="col">price</th>
+      <th scope="col"></th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let orderLine of orderLines">
+        <td>{{orderLine.lineNumber}}</td>
+        <td>{{orderLine.item.name}}</td>
+        <td>{{orderLine.amount}}</td>
+        <td>{{orderLine.item.price}}$</td>
+        <td><i class="fa fa-trash"></i></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 *ngIf="!orderLines">There are no items in the cart</h3>
 </div>
+<button class="btn btn-dark close-sidebar" (click)="collapse()">close</button>

@@ -1,13 +1,13 @@
 .card:hover img {
     transform: scale(1.2, 1.2);
-    transition-duration: 500ms;
+    transition-duration: 700ms;
     transition-timing-function: ease-out;
     opacity: 0.7;
 }
 
 .card img {
     transform: scale(1.0, 1.0);
-    transition-duration: 500ms;
+    transition-duration: 700ms;
     transition-timing-function: ease-out;
 }
 
@@ -18,4 +18,11 @@
 
 .animate {
     transition: all 0.3s ease-in-out;
+}
+
+.card {
+    width: 288px;
+    height: 288px;
+    float: left;
+    margin: 10px;
 }

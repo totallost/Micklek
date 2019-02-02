@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AppComponent } from '../app.component';
+import { OrderService } from '../services/order.service';
+import { Order } from '../models/order';
 
 @Component({
   selector: 'app-order-panel',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderPanelComponent implements OnInit {
 
-  constructor() { }
+  orderLines: Order[];
+
+  constructor(private appComponent: AppComponent, private orderService: OrderService) { }
 
   ngOnInit() {
+    this.orderService.orderLines.subscribe(orderLines => {
+      this.orderLines = orderLines;
+      console.log(this.orderLines);
+    });
+  }
+
+  collapse() {
+    this.appComponent.tuggleSidebar();
   }
 
 }
