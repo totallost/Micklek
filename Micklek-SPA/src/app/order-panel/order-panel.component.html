@@ -13,10 +13,12 @@
         <td>{{orderLine.item.name}}</td>
         <td>{{orderLine.amount}}</td>
         <td>{{orderLine.item.price}}$</td>
-        <td><i class="fa fa-trash"></i></td>
+        <td><i class="fa fa-trash" (click)="delete(orderLine.lineNumber)" style="cursor: pointer;"></i></td>
       </tr>
     </tbody>
   </table>
-  <h3 *ngIf="!orderLines">There are no items in the cart</h3>
+  <h3 *ngIf="!orderLines || orderLines == []" class="m-3">There are no items in the cart</h3>
 </div>
-<button class="btn btn-dark close-sidebar" (click)="collapse()">close</button>
+<button class="btn btn-outline-dark" (click)="collapse()">Close</button>
+<button class="btn btn-outline-danger" (click)="reset()">Reset</button>
+<button class="btn btn-outline-primary">Check-Out</button>

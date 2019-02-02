@@ -18,7 +18,7 @@ export class OrderService {
       this.orderLine = orderLine;
     });
     if (this.orderLine) {
-      for (let i = 0; this.orderLine[i]; i++) {
+      for (let i = 0; this.orderLine.length > i; i++) {
         if (this.orderLine[i].item === item) {
           this.orderLine[i].amount++;
           this.orderLines.next(this.orderLine.slice());
@@ -38,6 +38,27 @@ export class OrderService {
       this.orderLines.next(this.orderLine.slice());
     }
     this.itemExist = false;
+  }
+
+  removeLine(line: number) {
+    this.orderLine.splice(line - 1 , 1);
+    for (let i = 0; this.orderLine.length > i; i++) {
+      this.orderLine[i].lineNumber = i + 1;
+    }
+    this.orderLines.next(this.orderLine.slice());
+  }
+
+  reset() {
+    this.orderLine = [];
+    this.orderLines.next(this.orderLine.slice());
+  }
+
+  totalItems() {
+    let total = 0;
+    for (let i = 0; this.orderLine.length > i; i++) {
+      total += this.orderLine[i].amount;
+    }
+    return total;
   }
 
 }

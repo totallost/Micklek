@@ -25,4 +25,12 @@ export class OrderPanelComponent implements OnInit {
     this.appComponent.tuggleSidebar();
   }
 
+  delete(line: number) {
+    this.orderService.removeLine(line);
+  }
+
+  reset() {
+    this.orderService.reset();
+  }
+
 }

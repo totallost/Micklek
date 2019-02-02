@@ -20,9 +20,9 @@
   </div>
 </div>
 <br><br><br>
-<div class="container mt-4 items-container" style="clear:both">
+<div class="container mt-4 items-container" style="clear:both;">
   <div class="col">
-    <div *ngFor="let item of items" class="item-cards">
+    <div *ngFor="let item of items" class="item-cards" style="cursor: pointer;">
       <app-item-card [item]="item" (click)="addItemToOrder(item)"></app-item-card>
     </div>
   </div>
