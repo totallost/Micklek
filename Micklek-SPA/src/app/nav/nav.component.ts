@@ -14,7 +14,12 @@ export class NavComponent implements OnInit {
 
   ngOnInit() {
     this.totalItems = 0;
-    this.totalItems = this.orderService.totalItems();
+    this.orderService.orderLines.subscribe(orders => {
+      this.totalItems = 0;
+      for (let i = 0; orders.length > i; i++) {
+        this.totalItems += orders[i].amount;
+      }
+    });
   }
 
   collapse() {

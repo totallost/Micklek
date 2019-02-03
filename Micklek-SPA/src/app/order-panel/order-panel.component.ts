@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../app.component';
 import { OrderService } from '../services/order.service';
 import { Order } from '../models/order';
+import { AlertifyService } from '../services/alertify.service';
 
 @Component({
   selector: 'app-order-panel',
@@ -12,7 +13,7 @@ export class OrderPanelComponent implements OnInit {
 
   orderLines: Order[];
 
-  constructor(private appComponent: AppComponent, private orderService: OrderService) { }
+  constructor(private appComponent: AppComponent, private orderService: OrderService, private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.orderService.orderLines.subscribe(orderLines => {
@@ -30,7 +31,8 @@ export class OrderPanelComponent implements OnInit {
   }
 
   reset() {
-    this.orderService.reset();
+    this.alertify.confirm('MickLek', 'are you sure you want to reset the order?', () => {
+      this.orderService.reset();
+    });
   }
-
 }

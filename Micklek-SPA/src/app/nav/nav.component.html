@@ -3,7 +3,7 @@
       <div class="navbar-header">
           <button class="btn btn-primery" (click)="collapse()">
             <i class="fa fa-shopping-basket"></i>
-            <span class="badge badge-light">{{totalItems}}</span>
+            <span class="badge badge-light" *ngIf="totalItems>0" >{{totalItems}}</span>
           </button>
       </div>
       <img src="../../assets/images/logo.png">

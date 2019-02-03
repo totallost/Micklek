@@ -9,13 +9,14 @@ import { ItemCardComponent } from './item-card/item-card.component';
 import { ItemService } from './services/item.service';
 import { HttpClientModule } from '@angular/common/http';
 import { OrderService } from './services/order.service';
+import { AlertifyService } from './services/alertify.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     OrderPanelComponent,
     NavComponent,
-    ItemCardComponent
+    ItemCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,6 +26,7 @@ import { OrderService } from './services/order.service';
   providers: [
     ItemService,
     OrderService,
+    AlertifyService,
   ],
   bootstrap: [AppComponent]
 })

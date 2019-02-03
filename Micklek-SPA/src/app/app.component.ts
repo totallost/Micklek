@@ -3,6 +3,7 @@ import { Item } from './models/item';
 import { ItemService } from './services/item.service';
 import { ActivatedRoute } from '@angular/router';
 import { OrderService } from './services/order.service';
+import { AlertifyService } from './services/alertify.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ export class AppComponent implements OnInit {
   items: Item[] = [ ];
 
   constructor(private itemService: ItemService, private route: ActivatedRoute,
-    private orderService: OrderService) {}
+    private orderService: OrderService, private alertify: AlertifyService) {}
 
   ngOnInit() {
     this.loadItems();
@@ -38,5 +39,6 @@ export class AppComponent implements OnInit {
 
   addItemToOrder(item: Item) {
     this.orderService.addLine(item);
+    this.alertify.success('Item added');
   }
 }
