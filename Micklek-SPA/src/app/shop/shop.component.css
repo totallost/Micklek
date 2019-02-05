@@ -1,0 +1,17 @@
+.main-photo {
+    align-content: center;
+}
+
+.items-container {
+  clear: left;
+}
+
+
+img {
+    height: 200px;
+    widows: 200px;
+    opacity: 0.5;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

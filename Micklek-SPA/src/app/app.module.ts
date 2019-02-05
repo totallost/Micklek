@@ -10,6 +10,9 @@ import { ItemService } from './services/item.service';
 import { HttpClientModule } from '@angular/common/http';
 import { OrderService } from './services/order.service';
 import { AlertifyService } from './services/alertify.service';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { RouterModule } from '@angular/router';
+import { ShopComponent } from './shop/shop.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +20,8 @@ import { AlertifyService } from './services/alertify.service';
     OrderPanelComponent,
     NavComponent,
     ItemCardComponent,
+    CheckoutComponent,
+    ShopComponent,
   ],
   imports: [
     BrowserModule,

@@ -31,8 +31,12 @@ export class OrderPanelComponent implements OnInit {
   }
 
   reset() {
-    this.alertify.confirm('MickLek', 'are you sure you want to reset the order?', () => {
+    this.alertify.confirm('MickLek', 'Are you sure you want to RESET the order?', () => {
       this.orderService.reset();
+      this.alertify.success('Order was reset');
+    }, () => {
+      this.alertify.error('Reset Canceled');
     });
   }
+
 }
