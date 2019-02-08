@@ -1,3 +1,43 @@
-<p>
-  checkout works!
-</p>
+<div class="container" class="justify-content-center">
+  <div class="info">
+    <p>
+      Please make sure you chose the right products before you continue.
+    </p>
+  </div>
+  <div class="container">
+    <table class="table" *ngIf="orderLinesCheckout?.length>0">
+      <thead>
+        <th scope="col">#</th>
+        <th scope="col">Item</th>
+        <th scope="col">Amount</th>
+        <th scope="col">price</th>
+        <th scope="col"></th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let orderLine of orderLinesCheckout">
+          <td>{{orderLine.lineNumber}}</td>
+          <td>{{orderLine.item.name}}</td>
+          <td>
+            <i class="fa fa-minus" *ngIf="orderLine.amount>1" style="cursor: pointer" (click)="changeAmount(orderLine.lineNumber, orderLine.amount-1)"></i> 
+            {{orderLine.amount}} 
+            <i class="fa fa-plus" *ngIf="orderLine.amount<999" style="cursor: pointer" (click)="changeAmount(orderLine.lineNumber, orderLine.amount+1)"></i>
+          </td>
+          <td>{{orderLine.item.price}}$</td>
+          <td><i class="fa fa-trash" (click)="delete(orderLine.lineNumber)" style="cursor: pointer;"></i></td>
+        </tr>
+        <tr>
+          <td><strong>total:</strong></td>
+          <td></td>
+          <td></td>
+          <td><strong>{{totalSum}}$</strong></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 *ngIf="!orderLinesCheckout || orderLinesCheckout.length === 0" class="m-3">There are no items in the cart</h3>
+  </div>
+  <div>
+    <button class="btn btn-outline-success" [routerLink]="['/']">Back To Shop</button>
+    <button class="btn btn-outline-primary" [routerLink]="['/continue']" (click)="onContinue()">Continue</button>
+  </div>
+</div>

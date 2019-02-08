@@ -13,12 +13,12 @@ export class OrderPanelComponent implements OnInit {
 
   orderLines: Order[];
 
-  constructor(private appComponent: AppComponent, private orderService: OrderService, private alertify: AlertifyService) { }
+  constructor(private appComponent: AppComponent, private orderService: OrderService,
+    private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.orderService.orderLines.subscribe(orderLines => {
       this.orderLines = orderLines;
-      console.log(this.orderLines);
     });
   }
 
@@ -37,6 +37,10 @@ export class OrderPanelComponent implements OnInit {
     }, () => {
       this.alertify.error('Reset Canceled');
     });
+  }
+
+  checkout() {
+    this.collapse();
   }
 
 }

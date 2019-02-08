@@ -11,8 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { OrderService } from './services/order.service';
 import { AlertifyService } from './services/alertify.service';
 import { CheckoutComponent } from './checkout/checkout.component';
-import { RouterModule } from '@angular/router';
 import { ShopComponent } from './shop/shop.component';
+import { CustomerDetailsComponent } from './customer-details/customer-details.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +22,7 @@ import { ShopComponent } from './shop/shop.component';
     ItemCardComponent,
     CheckoutComponent,
     ShopComponent,
+    CustomerDetailsComponent,
   ],
   imports: [
     BrowserModule,

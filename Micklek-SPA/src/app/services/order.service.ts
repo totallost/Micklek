@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Order } from '../models/order';
 import { Item } from '../models/item';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
-  orderLines = new Subject<Order[]>();
+  orderLines = new BehaviorSubject<Order[]>([]);
 
   orderLine = [];
   itemExist: boolean;

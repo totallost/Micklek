@@ -6,5 +6,5 @@ export interface Order {
     itemId: number;
     item: Item;
     amount: number;
-    lineNumber;
+    lineNumber: number;
 }
