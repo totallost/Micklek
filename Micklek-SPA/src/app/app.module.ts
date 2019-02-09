@@ -13,6 +13,7 @@ import { AlertifyService } from './services/alertify.service';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ShopComponent } from './shop/shop.component';
 import { CustomerDetailsComponent } from './customer-details/customer-details.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { CustomerDetailsComponent } from './customer-details/customer-details.co
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [
     ItemService,

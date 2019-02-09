@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ShopComponent } from './shop/shop.component';
+import { CustomerDetailsComponent } from './customer-details/customer-details.component';
 
 const routes: Routes = [
   {path: '', component: ShopComponent},
@@ -11,7 +12,8 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     // canActivate: [authGard],
     children: [
-      { path: 'checkout', component: CheckoutComponent }
+      { path: 'checkout', component: CheckoutComponent },
+      { path: 'details', component: CustomerDetailsComponent }
     ]
   },
   { path: '**', redirectTo: '', pathMatch: 'full'}
