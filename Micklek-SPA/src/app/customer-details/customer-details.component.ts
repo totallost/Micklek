@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Customer } from '../models/customer';
+import { OrderService } from '../services/order.service';
+import { AlertifyService } from '../services/alertify.service';
 
 @Component({
   selector: 'app-customer-details',
@@ -9,8 +12,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class CustomerDetailsComponent implements OnInit {
 
   customerDetailsForm: FormGroup;
+  customer: Customer;
 
-  constructor() { }
+  constructor(private orderService: OrderService, private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.customerDetailsForm = new FormGroup({
@@ -25,12 +29,25 @@ export class CustomerDetailsComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.customerDetailsForm);
+    this.customer = {
+      firstName: this.customerDetailsForm.get('firstName').value,
+      sureName: this.customerDetailsForm.get('sureName').value,
+      mobileNumber: this.customerDetailsForm.get('mobileNumber').value,
+      email: this.customerDetailsForm.get('email').value,
+      address: this.customerDetailsForm.get('address').value,
+      dateReady: this.customerDetailsForm.get('dateReady').value,
+      notes: this.customerDetailsForm.get('notes').value
+    };
+    this.orderService.postOrderInfo(this.customer).subscribe(message => {
+      this.customerDetailsForm.reset();
+      this.alertify.success('order sent successfuly');
+    }, error => {
+      this.alertify.error('order failed to sent');
+    });
   }
 
   forbbidenDates(control: FormControl): { [s: string]: boolean } {
     if (Date.parse(control.value) < Date.now()) {
-      console.log(Date.parse(control.value));
       return {'dateIsForbbiden': true};
     }
     return null;

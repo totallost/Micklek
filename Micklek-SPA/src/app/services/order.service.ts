@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Order } from '../models/order';
 import { Item } from '../models/item';
-import { Subject, Observable, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
   orderLines = new BehaviorSubject<Order[]>([]);
-
+  urlBase = environment.apiUrl;
   orderLine = [];
   itemExist: boolean;
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   addLine(item: Item) {
     this.orderLines.subscribe(orderLine => {
@@ -59,6 +61,14 @@ export class OrderService {
       total += this.orderLine[i].amount;
     }
     return total;
+  }
+
+  postOrderInfo(clientInfo) {
+    const newOrder = {
+      clienDetails: clientInfo,
+      orderDetails: this.orderLines
+    };
+    return this.http.post(this.urlBase + '/details/sendOrder/', newOrder);
   }
 
 }
