@@ -7,6 +7,7 @@ namespace Micklek.API.Dtos
         public string MobileNumber { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
+        public string DateReady { get; set; }
         public string Notes { get; set; }
     }
 }

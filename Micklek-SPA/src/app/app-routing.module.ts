@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ShopComponent } from './shop/shop.component';
 import { CustomerDetailsComponent } from './customer-details/customer-details.component';
+import { OrderDoneComponent } from './order-done/order-done.component';
 
 const routes: Routes = [
   {path: '', component: ShopComponent},
@@ -13,7 +14,8 @@ const routes: Routes = [
     // canActivate: [authGard],
     children: [
       { path: 'checkout', component: CheckoutComponent },
-      { path: 'details', component: CustomerDetailsComponent }
+      { path: 'details', component: CustomerDetailsComponent },
+      {path: 'Done', component: OrderDoneComponent},
     ]
   },
   { path: '**', redirectTo: '', pathMatch: 'full'}

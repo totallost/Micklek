@@ -30,8 +30,7 @@ export class OrderService {
     }
     if (!this.itemExist) {
       this.orderLine.push({
-        id: null,
-        orderId: null,
+        orderId: -1,
         itemId: item.id,
         item: item,
         amount: 1,
@@ -64,11 +63,13 @@ export class OrderService {
   }
 
   postOrderInfo(clientInfo) {
+    let _orderDetails: any = {};
+    _orderDetails = this.orderLines.value;
     const newOrder = {
       clienDetails: clientInfo,
-      orderDetails: this.orderLines
+      orderDetails: _orderDetails
     };
-    return this.http.post(this.urlBase + '/details/sendOrder/', newOrder);
+    return this.http.post(this.urlBase + 'items/details/sendOrder', newOrder);
   }
 
 }

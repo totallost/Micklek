@@ -14,6 +14,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { ShopComponent } from './shop/shop.component';
 import { CustomerDetailsComponent } from './customer-details/customer-details.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { OrderDoneComponent } from './order-done/order-done.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     CheckoutComponent,
     ShopComponent,
     CustomerDetailsComponent,
+    OrderDoneComponent,
   ],
   imports: [
     BrowserModule,

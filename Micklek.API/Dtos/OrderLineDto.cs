@@ -5,7 +5,6 @@ namespace Micklek.API.Dtos
 {
     public class OrderLineDto
     {
-        public int Id { get; set; }
         public int OrderId { get; set; }
         public int ItemId { get; set; }
         public Item Item { get; set; }

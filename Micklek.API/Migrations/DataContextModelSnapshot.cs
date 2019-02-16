@@ -43,9 +43,11 @@ namespace Micklek.API.Migrations
 
                     b.Property<string>("ClientEmail");
 
-                    b.Property<string>("ClientName");
+                    b.Property<string>("ClientFirstName");
 
                     b.Property<string>("ClientRemarks");
+
+                    b.Property<string>("ClientSureName");
 
                     b.Property<DateTime>("DateCreation");
 
@@ -62,24 +64,17 @@ namespace Micklek.API.Migrations
 
             modelBuilder.Entity("Micklek.API.Models.OrderLine", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("OrderHeaderId");
+
+                    b.Property<int>("LineNumber");
 
                     b.Property<int>("Amount");
 
                     b.Property<int>("ItemId");
 
-                    b.Property<int>("LineNumber");
-
-                    b.Property<int?>("OrderHeaderId");
-
-                    b.Property<int>("OrderId");
-
-                    b.HasKey("Id");
+                    b.HasKey("OrderHeaderId", "LineNumber");
 
                     b.HasIndex("ItemId");
-
-                    b.HasIndex("OrderHeaderId");
 
                     b.ToTable("OrderLines");
                 });
@@ -105,7 +100,8 @@ namespace Micklek.API.Migrations
 
                     b.HasOne("Micklek.API.Models.OrderHeader")
                         .WithMany("OrderLines")
-                        .HasForeignKey("OrderHeaderId");
+                        .HasForeignKey("OrderHeaderId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

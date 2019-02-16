@@ -36,8 +36,8 @@
     </table>
     <h3 *ngIf="!orderLinesCheckout || orderLinesCheckout.length === 0" class="m-3">There are no items in the cart</h3>
   </div>
-  <div>
+  <div class="mt-5">
     <button class="btn btn-outline-secondary" [routerLink]="['/']">Back To Shop</button>
-    <button class="btn btn-outline-primary" [routerLink]="['/details']" (click)="onContinue()">Continue</button>
+    <button class="btn btn-outline-primary" [routerLink]="['/details']" (click)="onContinue()" [disabled]="orderLinesCheckout.length === 0">Continue</button>
   </div>
 </div>

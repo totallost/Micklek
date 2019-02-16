@@ -4,6 +4,9 @@
 
 .items-container {
   clear: left;
+  align-content: center;
+  left: 100px;
+  max-width: 100%;
 }
 
 

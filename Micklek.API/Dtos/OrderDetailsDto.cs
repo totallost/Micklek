@@ -4,7 +4,7 @@ namespace Micklek.API.Dtos
 {
     public class OrderDetailsDto
     {
-        public ClientInfoDto ClientInfoDto { get; set; }
-        public ICollection<OrderLineDto> OrderLineDto  { get; set; }
+        public ClientInfoDto clienDetails { get; set; }
+        public OrderLineDto[] orderDetails { get; set; }
     }
 }

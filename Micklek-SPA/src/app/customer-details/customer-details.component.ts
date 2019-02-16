@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Customer } from '../models/customer';
 import { OrderService } from '../services/order.service';
 import { AlertifyService } from '../services/alertify.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-customer-details',
@@ -14,7 +15,7 @@ export class CustomerDetailsComponent implements OnInit {
   customerDetailsForm: FormGroup;
   customer: Customer;
 
-  constructor(private orderService: OrderService, private alertify: AlertifyService) { }
+  constructor(private orderService: OrderService, private alertify: AlertifyService, private router: Router) { }
 
   ngOnInit() {
     this.customerDetailsForm = new FormGroup({
@@ -38,9 +39,11 @@ export class CustomerDetailsComponent implements OnInit {
       dateReady: this.customerDetailsForm.get('dateReady').value,
       notes: this.customerDetailsForm.get('notes').value
     };
+
     this.orderService.postOrderInfo(this.customer).subscribe(message => {
       this.customerDetailsForm.reset();
       this.alertify.success('order sent successfuly');
+      this.router.navigate(['/Done']);
     }, error => {
       this.alertify.error('order failed to sent');
     });

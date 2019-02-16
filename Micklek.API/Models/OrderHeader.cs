@@ -8,7 +8,8 @@ namespace Micklek.API.Models
         public int Id { get; set; }
         public int NumberOfItems { get; set; }
         public float TotalPrice { get; set; }
-        public string ClientName { get; set; }
+        public string ClientFirstName { get; set; }
+        public string ClientSureName { get; set; }
         public string ClientEmail { get; set; }
         public string ClientCell { get; set; }
         public string ClientRemarks { get; set; }
