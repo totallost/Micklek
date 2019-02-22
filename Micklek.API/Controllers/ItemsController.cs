@@ -107,7 +107,8 @@ namespace Micklek.API.Controllers
                 TotalPrice = totalPrice,
                 NumberOfItems = totalItems,
                 DateCreation = DateTime.Now,
-                DateTarget = Convert.ToDateTime(clientDetails.DateReady)
+                DateTarget = Convert.ToDateTime(clientDetails.DateReady),
+                StatusId = 1
             };
             OrderLine orderLine;
             List<OrderLine> orderLineCollection = new List<OrderLine>();
@@ -132,6 +133,13 @@ namespace Micklek.API.Controllers
             }
 
             throw new Exception ("Failed to Save Order");
+        }
+
+        [HttpGet("management/get-order-headers")]
+        public async Task<IActionResult> GetOrderHeaders()
+        {
+            var orderHeaders = await _repo.GetOrderHeaders();
+            return Ok(orderHeaders);
         }
 
     }

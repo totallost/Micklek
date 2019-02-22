@@ -33,6 +33,11 @@ namespace Micklek.API.Data
             return await _context.Items.ToListAsync();
         }
 
+        public async Task<IEnumerable<OrderHeader>> GetOrderHeaders()
+        {
+            return await _context.OrderHeaders.ToListAsync();
+        }
+
         public async Task<bool> SaveAll()
         {
             return await _context.SaveChangesAsync() > 0;

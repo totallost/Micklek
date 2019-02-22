@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Micklek.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190216154056_Initial")]
-    partial class Initial
+    [Migration("20190222123411_initiate")]
+    partial class initiate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -57,9 +57,13 @@ namespace Micklek.API.Migrations
 
                     b.Property<int>("NumberOfItems");
 
+                    b.Property<int>("StatusId");
+
                     b.Property<float>("TotalPrice");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("StatusId");
 
                     b.ToTable("OrderHeaders");
                 });
@@ -81,6 +85,18 @@ namespace Micklek.API.Migrations
                     b.ToTable("OrderLines");
                 });
 
+            modelBuilder.Entity("Micklek.API.Models.Status", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Statuses");
+                });
+
             modelBuilder.Entity("Micklek.API.Models.Value", b =>
                 {
                     b.Property<int>("Id")
@@ -91,6 +107,14 @@ namespace Micklek.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Values");
+                });
+
+            modelBuilder.Entity("Micklek.API.Models.OrderHeader", b =>
+                {
+                    b.HasOne("Micklek.API.Models.Status", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Micklek.API.Models.OrderLine", b =>

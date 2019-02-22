@@ -16,5 +16,7 @@ namespace Micklek.API.Models
         public ICollection<OrderLine> OrderLines { get; set; }
         public DateTime DateCreation { get; set; }
         public DateTime DateTarget { get; set; }
+        public Status Status { get; set; }
+        public int StatusId { get; set; }
     }
 }

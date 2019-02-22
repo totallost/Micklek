@@ -15,6 +15,9 @@ import { ShopComponent } from './shop/shop.component';
 import { CustomerDetailsComponent } from './customer-details/customer-details.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { OrderDoneComponent } from './order-done/order-done.component';
+import { OrderManagementComponent } from './management/order-management/order-management.component';
+import { AuthManagementComponent } from './management/auth-management/auth-management.component';
+import { OrderCardComponent } from './management/order-card/order-card.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +29,9 @@ import { OrderDoneComponent } from './order-done/order-done.component';
     ShopComponent,
     CustomerDetailsComponent,
     OrderDoneComponent,
+    OrderManagementComponent,
+    AuthManagementComponent,
+    OrderCardComponent,
   ],
   imports: [
     BrowserModule,

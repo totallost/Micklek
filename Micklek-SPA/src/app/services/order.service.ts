@@ -4,6 +4,7 @@ import { Item } from '../models/item';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { OrderHeader } from '../models/order-header';
 
 @Injectable({
   providedIn: 'root'
@@ -70,6 +71,10 @@ export class OrderService {
       orderDetails: _orderDetails
     };
     return this.http.post(this.urlBase + 'items/details/sendOrder', newOrder);
+  }
+
+  getOrderHeaders() {
+    return this.http.get<OrderHeader[]>(this.urlBase + 'items/management/get-order-headers');
   }
 
 }

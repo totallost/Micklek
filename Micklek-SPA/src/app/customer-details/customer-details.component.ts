@@ -4,6 +4,7 @@ import { Customer } from '../models/customer';
 import { OrderService } from '../services/order.service';
 import { AlertifyService } from '../services/alertify.service';
 import { Router } from '@angular/router';
+import { OrderPanelComponent } from '../order-panel/order-panel.component';
 
 @Component({
   selector: 'app-customer-details',
@@ -15,7 +16,9 @@ export class CustomerDetailsComponent implements OnInit {
   customerDetailsForm: FormGroup;
   customer: Customer;
 
-  constructor(private orderService: OrderService, private alertify: AlertifyService, private router: Router) { }
+  constructor(private orderService: OrderService, 
+    private alertify: AlertifyService,
+    private router: Router) { }
 
   ngOnInit() {
     this.customerDetailsForm = new FormGroup({
@@ -44,6 +47,7 @@ export class CustomerDetailsComponent implements OnInit {
       this.customerDetailsForm.reset();
       this.alertify.success('order sent successfuly');
       this.router.navigate(['/Done']);
+      this.orderService.reset();
     }, error => {
       this.alertify.error('order failed to sent');
     });
