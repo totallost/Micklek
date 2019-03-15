@@ -5,7 +5,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { ShopComponent } from './shop/shop.component';
 import { CustomerDetailsComponent } from './customer-details/customer-details.component';
 import { OrderDoneComponent } from './order-done/order-done.component';
-import { OrderManagementComponent } from './management/order-management/order-management.component';
+import { OrdersManagementComponent } from './management/orders-management/orders-management.component';
+import { OrderDetailsManagementComponent } from './management/order-details-management/order-details-management.component';
 
 const routes: Routes = [
   {path: '', component: ShopComponent},
@@ -17,7 +18,8 @@ const routes: Routes = [
       { path: 'checkout', component: CheckoutComponent },
       { path: 'details', component: CustomerDetailsComponent },
       { path: 'Done', component: OrderDoneComponent},
-      { path: 'order-management', component: OrderManagementComponent}
+      { path: 'orders-management', component: OrdersManagementComponent},
+      { path: 'orders-management/:id', component: OrderDetailsManagementComponent}
     ]
   },
   { path: '**', redirectTo: '', pathMatch: 'full'}

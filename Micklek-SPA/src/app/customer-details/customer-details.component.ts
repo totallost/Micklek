@@ -4,7 +4,6 @@ import { Customer } from '../models/customer';
 import { OrderService } from '../services/order.service';
 import { AlertifyService } from '../services/alertify.service';
 import { Router } from '@angular/router';
-import { OrderPanelComponent } from '../order-panel/order-panel.component';
 
 @Component({
   selector: 'app-customer-details',
@@ -16,7 +15,7 @@ export class CustomerDetailsComponent implements OnInit {
   customerDetailsForm: FormGroup;
   customer: Customer;
 
-  constructor(private orderService: OrderService, 
+  constructor(private orderService: OrderService,
     private alertify: AlertifyService,
     private router: Router) { }
 
@@ -43,12 +42,12 @@ export class CustomerDetailsComponent implements OnInit {
       notes: this.customerDetailsForm.get('notes').value
     };
 
-    this.orderService.postOrderInfo(this.customer).subscribe(message => {
+    this.orderService.postOrderInfo(this.customer).subscribe(() => {
       this.customerDetailsForm.reset();
       this.alertify.success('order sent successfuly');
       this.router.navigate(['/Done']);
       this.orderService.reset();
-    }, error => {
+    }, () => {
       this.alertify.error('order failed to sent');
     });
   }

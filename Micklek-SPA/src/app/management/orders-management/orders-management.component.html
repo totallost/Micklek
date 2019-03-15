@@ -1,0 +1,32 @@
+<div class="container">
+  <hr>
+  <div class="row mt-3">
+    <div class="col-sm new-orders">
+      New Orders
+    </div>
+    <div class="col-sm verified">
+      Verified
+    </div>
+    <div class="col-sm done">
+      Done
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-sm new-orders">
+      <div class="item-cards" style="cursor: pointer;" *ngFor="let orderHeader of orderHeaders?.ordersNew">
+        <app-order-card [orderHeader]="orderHeader"></app-order-card>
+      </div>
+    </div>
+    <div class="col-sm verified">
+      <div class="item-cards" style="cursor: pointer;" *ngFor="let orderHeader of orderHeaders?.ordersVerified">
+        <app-order-card [orderHeader]="orderHeader"></app-order-card>
+      </div>
+    </div>
+    <div class="col-sm done">
+      <div class="item-cards" style="cursor: pointer;" *ngFor="let orderHeader of orderHeaders?.ordersDone">
+        <app-order-card [orderHeader]="orderHeader"></app-order-card>
+      </div>
+    </div>
+  </div>
+</div>
