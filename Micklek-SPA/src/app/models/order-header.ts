@@ -8,9 +8,10 @@ export interface OrderHeader {
     clientSureName: string;
     clientEmail: string;
     clientCell: string;
+    address: string;
     clientRemarks: string;
     orderLines: Order[];
     dateCreation: Date;
-    dateTarget: Date;
+    dateTarget: string;
     statusId: number;
 }

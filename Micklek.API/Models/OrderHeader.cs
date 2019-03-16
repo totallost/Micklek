@@ -12,6 +12,7 @@ namespace Micklek.API.Models
         public string ClientSureName { get; set; }
         public string ClientEmail { get; set; }
         public string ClientCell { get; set; }
+        public string Address { get; set; }
         public string ClientRemarks { get; set; }
         public ICollection<OrderLine> OrderLines { get; set; }
         public DateTime DateCreation { get; set; }

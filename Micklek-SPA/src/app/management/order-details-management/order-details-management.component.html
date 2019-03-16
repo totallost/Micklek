@@ -1,8 +1,8 @@
 <div class="container">
-  <div class="col">
+  <h1>Order Number: {{orderHeaders?.id}}</h1>
+  <div class="col-sm-6">
     <div class="row">
-      <h1><i class="fa fa-edit" (click)="customerDetailsForm.enable()" style="cursor: pointer;"></i></h1>
-      <h1>Order Number: {{orderHeaders?.id}}</h1>
+      <button class="btn btn-outline-warning" (click)="customerDetailsForm.enable()">Edit</button>
     </div>
     <div class="row">
       <form [formGroup]="customerDetailsForm" class="form-group" (ngSubmit)="onSubmit()">
@@ -51,43 +51,62 @@
           <textarea formControlName="notes" id="notes" cols="30" rows="3" class="form-control"></textarea>
         </div>
 
-        <button type="submit" class="btn btn-outline-primary" [disabled]="!customerDetailsForm.valid">Send
+        <button type="submit" class="btn btn-outline-primary" [disabled]="!customerDetailsForm.valid">Save
           Order</button>
         <hr>
         <div>
           <p>* Is requiered</p>
-          <p>The date must be after today</p>
         </div>
       </form>
-      <!-- <table class="table" *ngIf="orderLinesCheckout?.length>0">
-      <thead>
-        <th scope="col">#</th>
-        <th scope="col">Item</th>
-        <th scope="col">Amount</th>
-        <th scope="col">price</th>
-        <th scope="col"></th>
-      </thead>
-      <tbody>
-        <tr *ngFor="let orderLine of orderLinesCheckout">
-          <td>{{orderLine.lineNumber}}</td>
-          <td>{{orderLine.item.name}}</td>
-          <td>
-            <i class="fa fa-minus" *ngIf="orderLine.amount>1" style="cursor: pointer" (click)="changeAmount(orderLine.lineNumber, orderLine.amount-1)"></i> 
-            {{orderLine.amount}} 
-            <i class="fa fa-plus" *ngIf="orderLine.amount<999" style="cursor: pointer" (click)="changeAmount(orderLine.lineNumber, orderLine.amount+1)"></i>
-          </td>
-          <td>{{orderLine.item.price}}$</td>
-          <td><i class="fa fa-trash" (click)="delete(orderLine.lineNumber)" style="cursor: pointer;"></i></td>
-        </tr>
-        <tr>
-          <td><strong>total:</strong></td>
-          <td></td>
-          <td></td>
-          <td><strong>{{totalSum}}$</strong></td>
-          <td></td>
-        </tr>
-      </tbody>
-    </table> -->
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="row">
+      <h1>Details</h1>
+    </div>
+    <div class="row">
+      <table class="table" *ngIf="orderLines?.length>0">
+        <thead>
+          <th scope="col">#</th>
+          <th scope="col">Item</th>
+          <th scope="col">Amount</th>
+          <th scope="col">price</th>
+          <th scope="col">Line Price</th>
+          <th scope="col"></th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let orderLine of orderLines">
+            <td>{{orderLine.lineNumber}}</td>
+            <td>{{orderLine.item.name}}</td>
+            <td>
+              <i class="fa fa-minus" *ngIf="orderLine.amount>1" style="cursor: pointer"
+                (click)="changeAmount(orderLine.lineNumber, orderLine.amount-1)"></i>
+              {{orderLine.amount}}
+              <i class="fa fa-plus" *ngIf="orderLine.amount<999" style="cursor: pointer"
+                (click)="changeAmount(orderLine.lineNumber, orderLine.amount+1)"></i>
+            </td>
+            <td>{{orderLine.item.price}}$</td>
+            <td>{{orderLine.amount*orderLine.item.price}}$</td>
+            <td><i class="fa fa-trash" (click)="delete(orderLine.lineNumber)" style="cursor: pointer;"></i></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><button class="btn btn-outline-success">add Item</button></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>total:</strong></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><strong>{{orderHeaders.totalPrice}}$</strong></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

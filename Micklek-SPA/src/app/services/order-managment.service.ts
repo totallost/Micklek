@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { OrderHeader } from '../models/order-header';
+import { Order } from '../models/order';
 import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
@@ -52,6 +53,10 @@ export class OrderManagmentService {
           return orders[i];
         }
       }
+   }
+
+   getOrderLines(id: number) {
+     return this.http.get<Order[]>(this.urlBase + 'items/management/get-order-lines/' + id);
    }
 
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Micklek.API.Models;
 using Microsoft.EntityFrameworkCore;
@@ -36,6 +37,11 @@ namespace Micklek.API.Data
         public async Task<IEnumerable<OrderHeader>> GetOrderHeaders()
         {
             return await _context.OrderHeaders.ToListAsync();
+        }
+
+        public async Task<IEnumerable<OrderLine>> GetOrderLines(int id)
+        {
+            return await _context.OrderLines.Where(x => x.OrderHeaderId==id).Include(x => x.Item).ToListAsync();
         }
 
         public async Task<bool> SaveAll()

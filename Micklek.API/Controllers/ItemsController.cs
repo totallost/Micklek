@@ -108,7 +108,8 @@ namespace Micklek.API.Controllers
                 NumberOfItems = totalItems,
                 DateCreation = DateTime.Now,
                 DateTarget = Convert.ToDateTime(clientDetails.DateReady),
-                StatusId = 1
+                StatusId = 1,
+                Address = clientDetails.Address
             };
             OrderLine orderLine;
             List<OrderLine> orderLineCollection = new List<OrderLine>();
@@ -140,6 +141,13 @@ namespace Micklek.API.Controllers
         {
             var orderHeaders = await _repo.GetOrderHeaders();
             return Ok(orderHeaders);
+        }
+
+        [HttpGet("management/get-order-lines/{orderId}")]
+        public async Task<IActionResult> GetOrderLines(int orderId)
+        {
+            var OrderLines = await _repo.GetOrderLines(orderId);
+            return Ok(OrderLines);
         }
 
     }
