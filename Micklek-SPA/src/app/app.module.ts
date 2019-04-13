@@ -19,6 +19,8 @@ import { OrdersManagementComponent } from './management/orders-management/orders
 import { AuthManagementComponent } from './management/auth-management/auth-management.component';
 import { OrderCardComponent } from './management/order-card/order-card.component';
 import { OrderDetailsManagementComponent } from './management/order-details-management/order-details-management.component';
+import { AddItemComponent } from './management/add-item/add-item.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -34,12 +36,14 @@ import { OrderDetailsManagementComponent } from './management/order-details-mana
     AuthManagementComponent,
     OrderCardComponent,
     OrderDetailsManagementComponent,
+    AddItemComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    NgbModule,
   ],
   providers: [
     ItemService,

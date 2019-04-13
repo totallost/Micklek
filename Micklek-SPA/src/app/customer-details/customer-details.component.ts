@@ -33,13 +33,15 @@ export class CustomerDetailsComponent implements OnInit {
 
   onSubmit() {
     this.customer = {
+      id: 0,
       firstName: this.customerDetailsForm.get('firstName').value,
       sureName: this.customerDetailsForm.get('sureName').value,
       mobileNumber: this.customerDetailsForm.get('mobileNumber').value,
       email: this.customerDetailsForm.get('email').value,
       address: this.customerDetailsForm.get('address').value,
       dateReady: this.customerDetailsForm.get('dateReady').value,
-      notes: this.customerDetailsForm.get('notes').value
+      notes: this.customerDetailsForm.get('notes').value,
+      status: 0
     };
 
     this.orderService.postOrderInfo(this.customer).subscribe(() => {

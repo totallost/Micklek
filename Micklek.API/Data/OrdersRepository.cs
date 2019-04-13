@@ -34,9 +34,14 @@ namespace Micklek.API.Data
             return await _context.Items.ToListAsync();
         }
 
+        public async Task<OrderHeader> GetOrderHeader(int id)
+        {
+            return await _context.OrderHeaders.SingleOrDefaultAsync(x => x.Id == id);
+        }
+
         public async Task<IEnumerable<OrderHeader>> GetOrderHeaders()
         {
-            return await _context.OrderHeaders.ToListAsync();
+            return await _context.OrderHeaders.Include(x => x.Status).ToListAsync();
         }
 
         public async Task<IEnumerable<OrderLine>> GetOrderLines(int id)
@@ -44,9 +49,15 @@ namespace Micklek.API.Data
             return await _context.OrderLines.Where(x => x.OrderHeaderId==id).Include(x => x.Item).ToListAsync();
         }
 
+        public async Task<IEnumerable<Status>> GetStatuses()
+        {
+            return await _context.Statuses.ToListAsync();
+        }
+
         public async Task<bool> SaveAll()
         {
             return await _context.SaveChangesAsync() > 0;
         }
+
     }
 }

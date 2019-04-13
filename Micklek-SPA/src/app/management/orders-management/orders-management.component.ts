@@ -9,7 +9,6 @@ import { OrderHeaderGlobal } from 'src/app/models/order-header-global';
 })
 export class OrdersManagementComponent implements OnInit {
   orderHeaders: OrderHeaderGlobal;
-
   constructor(private orderManagmentService: OrderManagmentService) { }
 
   ngOnInit() {
@@ -23,6 +22,9 @@ export class OrdersManagementComponent implements OnInit {
       }, error => {
         console.log(error);
       });
+    this.orderManagmentService.getStatuses().subscribe(data => {
+      this.orderManagmentService.statuses = data;
+    });
     } else {
       this.orderManagmentService.orderHeaders.subscribe(allOrders => {
         this.orderHeaders = allOrders;

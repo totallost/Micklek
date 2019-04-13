@@ -17,7 +17,7 @@ namespace Micklek.API.Controllers
     {
         private readonly IOrderRepository _repo;
 
-        private readonly IMapper _mapper; 
+        private readonly IMapper _mapper;
 
         public ItemsController(IOrderRepository repo, IMapper mapper)
         {
@@ -47,7 +47,7 @@ namespace Micklek.API.Controllers
             _repo.Add(item);
             if (await _repo.SaveAll())
             {
-                return CreatedAtRoute("GetItem",new {id = item.Id}, "Created Successfuly");
+                return CreatedAtRoute("GetItem", new { id = item.Id }, "Created Successfuly");
             }
             throw new Exception("Failed to Create a new item");
         }
@@ -55,7 +55,7 @@ namespace Micklek.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteItem(int id)
         {
-            var itemToDelete =await _repo.GetItem(id);
+            var itemToDelete = await _repo.GetItem(id);
             _repo.Delete(itemToDelete);
 
             if (await _repo.SaveAll())
@@ -68,36 +68,36 @@ namespace Micklek.API.Controllers
         [HttpPost("details/sendOrder")]
         public async Task<IActionResult> CreateNewOrder(OrderDetailsDto orderDetailsDto)
         {
-            if(orderDetailsDto.clienDetails == null) 
+            if (orderDetailsDto.clienDetails == null)
                 return BadRequest();
-            if(orderDetailsDto.orderDetails == null)
+            if (orderDetailsDto.orderDetails == null)
                 return BadRequest();
 
             var orderLines = orderDetailsDto.orderDetails;
             var clientDetails = orderDetailsDto.clienDetails;
 
-            var totalItems=0;
-            float totalPrice=0;
+            var totalItems = 0;
+            float totalPrice = 0;
 
             var items = await _repo.GetItems();
-            
+
             foreach (var _orderLine in orderLines)
             {
-                var item = items.SingleOrDefault(x => x.Id ==_orderLine.ItemId);
+                var item = items.SingleOrDefault(x => x.Id == _orderLine.ItemId);
 
-                if(item == null)
+                if (item == null)
                 {
                     throw new Exception("Item does not exist");
                 }
 
-                if(_orderLine.Item.Price != item.Price)
+                if (_orderLine.Item.Price != item.Price)
                 {
                     _orderLine.Item.Price = item.Price;
                 }
-                totalItems +=_orderLine.Amount;
+                totalItems += _orderLine.Amount;
                 totalPrice += (float)_orderLine.Amount * _orderLine.Item.Price;
             }
-            OrderHeader orderHeader = new OrderHeader 
+            OrderHeader orderHeader = new OrderHeader
             {
                 ClientFirstName = clientDetails.FirstName,
                 ClientSureName = clientDetails.SureName,
@@ -113,27 +113,27 @@ namespace Micklek.API.Controllers
             };
             OrderLine orderLine;
             List<OrderLine> orderLineCollection = new List<OrderLine>();
-                            foreach(var line in orderLines)
+            foreach (var line in orderLines)
+            {
+                orderLine = new OrderLine
                 {
-                    orderLine = new OrderLine
-                    {
-                        ItemId = line.ItemId,
-                        Item = line.Item,
-                        Amount = line.Amount,
-                        LineNumber = line.LineNumber
-                    };
-                    orderLineCollection.Add(orderLine); 
-                }
-                orderHeader.OrderLines = orderLineCollection;
+                    ItemId = line.ItemId,
+                    Item = line.Item,
+                    Amount = line.Amount,
+                    LineNumber = line.LineNumber
+                };
+                orderLineCollection.Add(orderLine);
+            }
+            orderHeader.OrderLines = orderLineCollection;
 
             _repo.Add(orderHeader);
-            if(await _repo.SaveAll())
+            if (await _repo.SaveAll())
             {
                 var idToReturn = orderHeader.Id;
                 return Ok(orderHeader);
             }
 
-            throw new Exception ("Failed to Save Order");
+            throw new Exception("Failed to Save Order");
         }
 
         [HttpGet("management/get-order-headers")]
@@ -148,6 +148,92 @@ namespace Micklek.API.Controllers
         {
             var OrderLines = await _repo.GetOrderLines(orderId);
             return Ok(OrderLines);
+        }
+
+        [HttpPost("management/update-order")]
+        public async Task<IActionResult> UpdateOrder(OrderDetailsDto orderDetailsDto)
+        {
+            if (orderDetailsDto.clienDetails == null)
+                return BadRequest();
+            if (orderDetailsDto.orderDetails == null)
+                return BadRequest();
+
+            var orderLines = orderDetailsDto.orderDetails;
+            var clientDetails = orderDetailsDto.clienDetails;
+
+            var totalItems = 0;
+            float totalPrice = 0;
+
+            var items = await _repo.GetItems();
+
+            foreach (var _orderLine in orderLines)
+            {
+                var item = items.SingleOrDefault(x => x.Id == _orderLine.ItemId);
+
+                if (item == null)
+                {
+                    throw new Exception("Item does not exist");
+                }
+
+                if (_orderLine.Item.Price != item.Price)
+                {
+                    _orderLine.Item.Price = item.Price;
+                }
+                totalItems += _orderLine.Amount;
+                totalPrice += (float)_orderLine.Amount * _orderLine.Item.Price;
+            }
+
+            var oldOrderHeader = await _repo.GetOrderHeader(clientDetails.Id);
+            oldOrderHeader.ClientFirstName = clientDetails.FirstName;
+            oldOrderHeader.ClientSureName = clientDetails.SureName;
+            oldOrderHeader.ClientEmail = clientDetails.Email;
+            oldOrderHeader.ClientRemarks = clientDetails.Notes;
+            oldOrderHeader.ClientCell = clientDetails.MobileNumber;
+            oldOrderHeader.TotalPrice = totalPrice;
+            oldOrderHeader.NumberOfItems = totalItems;
+            oldOrderHeader.DateTarget = Convert.ToDateTime(clientDetails.DateReady);
+            oldOrderHeader.StatusId = clientDetails.Status;
+            oldOrderHeader.Address = clientDetails.Address;
+
+            var OldOrderLines = await _repo.GetOrderLines(clientDetails.Id);
+            //need to find a way to convert ienumerable to list and delete
+            //_repo.Delete(OldOrderLines);
+            List<OrderLine> OldOrderLinesList = OldOrderLines.ToList();
+            foreach (var OldOrder in OldOrderLinesList)
+            {
+                _repo.Delete(OldOrder);
+            }
+
+
+            OrderLine orderLine;
+            List<OrderLine> orderLineCollection = new List<OrderLine>();
+            foreach (var line in orderLines)
+            {
+                orderLine = new OrderLine
+                {
+                    ItemId = line.ItemId,
+                    Item = line.Item,
+                    Amount = line.Amount,
+                    LineNumber = line.LineNumber
+                };
+                orderLineCollection.Add(orderLine);
+            }
+            oldOrderHeader.OrderLines = orderLineCollection;
+
+            if (await _repo.SaveAll())
+            {
+                return Ok();
+            }
+
+            throw new Exception("Failed to Save Order");
+
+        }
+
+        [HttpGet("management/get-statuses")]
+        public async Task<IActionResult> GetStatuses()
+        {
+            var statuses = await _repo.GetStatuses();
+            return Ok(statuses);
         }
 
     }

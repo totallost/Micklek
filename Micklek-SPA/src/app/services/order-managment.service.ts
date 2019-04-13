@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { OrderHeaderGlobal } from '../models/order-header-global';
+import { Statuses } from '../models/statuses';
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +13,15 @@ import { OrderHeaderGlobal } from '../models/order-header-global';
 export class OrderManagmentService {
   urlBase = environment.apiUrl;
 
+  statuses: Statuses;
+
   orderHeaders = new BehaviorSubject<OrderHeaderGlobal>({
     allOrderHeaders: <OrderHeader[]>([]),
     ordersNew: <OrderHeader[]>([]),
     ordersVerified: <OrderHeader[]>([]),
     ordersDone: <OrderHeader[]>([])
   });
+
   constructor(private http: HttpClient) { }
 
   getOrderHeaders() {
@@ -25,38 +29,55 @@ export class OrderManagmentService {
     return this.http.get<OrderHeader[]>(this.urlBase + 'items/management/get-order-headers');
   }
 
-   sortOrdersByStatus() {
-     for (let i = 0; this.orderHeaders.value.allOrderHeaders[i]; i++) {
-       if (this.orderHeaders.value.allOrderHeaders[i].statusId === 1) {
-         this.orderHeaders.value.ordersNew.push(this.orderHeaders.value.allOrderHeaders[i]);
-       }
-       if (this.orderHeaders.value.allOrderHeaders[i].statusId === 2) {
-         this.orderHeaders.value.ordersVerified.push(this.orderHeaders.value.allOrderHeaders[i]);
-       }
-       if (this.orderHeaders.value.allOrderHeaders[i].statusId === 3) {
-         this.orderHeaders.value.ordersDone.push(this.orderHeaders.value.allOrderHeaders[i]);
-       }
-     }
-   }
-
-   initOrderHeaders() {
-     this.orderHeaders.value.allOrderHeaders = [];
-     this.orderHeaders.value.ordersDone = [];
-     this.orderHeaders.value.ordersNew = [];
-     this.orderHeaders.value.ordersVerified = [];
-   }
-
-   getOrderHeader(orderNumber: number) {
-      const orders: OrderHeader[] =  this.orderHeaders.value.allOrderHeaders;
-      for (let i = 0; orders.length > i; i++) {
-        if (orders[i].id === +orderNumber) {
-          return orders[i];
-        }
+  sortOrdersByStatus() {
+    this.orderHeaders.value.ordersDone.splice(0);
+    this.orderHeaders.value.ordersNew.splice(0);
+    this.orderHeaders.value.ordersVerified.splice(0);
+    for (let i = 0; this.orderHeaders.value.allOrderHeaders[i]; i++) {
+      if (this.orderHeaders.value.allOrderHeaders[i].statusId === 1) {
+        this.orderHeaders.value.ordersNew.push(this.orderHeaders.value.allOrderHeaders[i]);
       }
-   }
+      if (this.orderHeaders.value.allOrderHeaders[i].statusId === 2) {
+        this.orderHeaders.value.ordersVerified.push(this.orderHeaders.value.allOrderHeaders[i]);
+      }
+      if (this.orderHeaders.value.allOrderHeaders[i].statusId === 3) {
+        this.orderHeaders.value.ordersDone.push(this.orderHeaders.value.allOrderHeaders[i]);
+      }
+    }
+  }
 
-   getOrderLines(id: number) {
-     return this.http.get<Order[]>(this.urlBase + 'items/management/get-order-lines/' + id);
-   }
+  initOrderHeaders() {
+    this.orderHeaders.value.allOrderHeaders = [];
+    this.orderHeaders.value.ordersDone = [];
+    this.orderHeaders.value.ordersNew = [];
+    this.orderHeaders.value.ordersVerified = [];
+  }
+
+  getOrderHeader(orderNumber: number) {
+    const orders: OrderHeader[] = this.orderHeaders.value.allOrderHeaders;
+    for (let i = 0; orders.length > i; i++) {
+      if (orders[i].id === +orderNumber) {
+        return orders[i];
+      }
+    }
+  }
+
+  getOrderLines(id: number) {
+    return this.http.get<Order[]>(this.urlBase + 'items/management/get-order-lines/' + id);
+  }
+
+  updateOrder(clientInfo, orderLines) {
+    let _orderDetails: any = {};
+    _orderDetails = orderLines;
+    const newOrder = {
+      clienDetails: clientInfo,
+      orderDetails: _orderDetails
+    };
+    return this.http.post(this.urlBase + 'items/management/update-order', newOrder);
+  }
+
+  getStatuses() {
+    return this.http.get<Statuses>(this.urlBase + 'items/management/get-statuses');
+  }
 
 }

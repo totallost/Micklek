@@ -50,6 +50,12 @@
           <label for="notes">Notes:</label>
           <textarea formControlName="notes" id="notes" cols="30" rows="3" class="form-control"></textarea>
         </div>
+        <div class="form-group">
+          <label for="status">Status:</label>
+          <select formControlName="status" id="status" class="form-control">
+            <option *ngFor="let status of statuses" [value]="status?.id" class="form-control">{{status.description}}</option>
+          </select>
+        </div>
 
         <button type="submit" class="btn btn-outline-primary" [disabled]="!customerDetailsForm.valid">Save
           Order</button>
@@ -94,7 +100,7 @@
             <td></td>
             <td></td>
             <td></td>
-            <td><button class="btn btn-outline-success">add Item</button></td>
+            <td><button class="btn btn-outline-success" (click)="openLg(content)" [disabled]="!customerDetailsForm.valid">add Item</button></td>
             <td></td>
           </tr>
           <tr>
@@ -109,4 +115,22 @@
       </table>
     </div>
   </div>
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Choose Items</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="col">
+        <div *ngFor="let item of items" class="item-cards" style="cursor: pointer;">
+          <app-item-card [item]="item" (click)="addItemToOrder(item)"></app-item-card>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </ng-template>  
 </div>

@@ -1,4 +1,4 @@
-export interface Customer {
+export interface OrderHeaderUpdate {
     id: number;
     firstName: string;
     sureName: string;
