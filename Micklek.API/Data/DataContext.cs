@@ -12,6 +12,7 @@ namespace Micklek.API.Data
         public DbSet<OrderHeader> OrderHeaders { get; set; }
         public DbSet<OrderLine> OrderLines { get; set; }
         public DbSet<Status> Statuses { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
