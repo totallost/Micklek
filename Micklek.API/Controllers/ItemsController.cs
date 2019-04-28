@@ -6,6 +6,7 @@ using AutoMapper;
 using Micklek.API.Data;
 using Micklek.API.Dtos;
 using Micklek.API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -136,21 +137,21 @@ namespace Micklek.API.Controllers
             throw new Exception("Failed to Save Order");
         }
 
-        [HttpGet("management/get-order-headers")]
+        [HttpGet("management/get-order-headers"), Authorize]
         public async Task<IActionResult> GetOrderHeaders()
         {
             var orderHeaders = await _repo.GetOrderHeaders();
             return Ok(orderHeaders);
         }
 
-        [HttpGet("management/get-order-lines/{orderId}")]
+        [HttpGet("management/get-order-lines/{orderId}"), Authorize]
         public async Task<IActionResult> GetOrderLines(int orderId)
         {
             var OrderLines = await _repo.GetOrderLines(orderId);
             return Ok(OrderLines);
         }
 
-        [HttpPost("management/update-order")]
+        [HttpPost("management/update-order"), Authorize]
         public async Task<IActionResult> UpdateOrder(OrderDetailsDto orderDetailsDto)
         {
             if (orderDetailsDto.clienDetails == null)
@@ -229,7 +230,7 @@ namespace Micklek.API.Controllers
 
         }
 
-        [HttpGet("management/get-statuses")]
+        [HttpGet("management/get-statuses"), Authorize]
         public async Task<IActionResult> GetStatuses()
         {
             var statuses = await _repo.GetStatuses();

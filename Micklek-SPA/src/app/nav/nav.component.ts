@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../app.component';
 import { OrderService } from '../services/order.service';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -10,7 +12,8 @@ import { OrderService } from '../services/order.service';
 export class NavComponent implements OnInit {
   totalItems = 0;
 
-  constructor(private appComponent: AppComponent, private orderService: OrderService) { }
+  constructor(private appComponent: AppComponent, private orderService: OrderService, 
+    private auth: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.totalItems = 0;
@@ -24,6 +27,15 @@ export class NavComponent implements OnInit {
 
   collapse() {
     this.appComponent.tuggleSidebar();
+  }
+
+  loggedin() {
+    return this.auth.loggedIn();
+  }
+
+  logout() {
+    sessionStorage.clear();
+    this.router.navigate(['/']);
   }
 
 }

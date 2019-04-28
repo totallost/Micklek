@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { OrderHeader } from '../models/order-header';
 import { Order } from '../models/order';
 import { BehaviorSubject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { OrderHeaderGlobal } from '../models/order-header-global';
 import { Statuses } from '../models/statuses';
+import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,11 +23,16 @@ export class OrderManagmentService {
     ordersDone: <OrderHeader[]>([])
   });
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private auth: AuthService) { }
 
   getOrderHeaders() {
     this.initOrderHeaders();
-    return this.http.get<OrderHeader[]>(this.urlBase + 'items/management/get-order-headers');
+    return this.http.get<OrderHeader[]>(this.urlBase + 'items/management/get-order-headers', {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+        'Content-Type': 'application/json'
+      })
+    });
   }
 
   sortOrdersByStatus() {
@@ -63,7 +69,12 @@ export class OrderManagmentService {
   }
 
   getOrderLines(id: number) {
-    return this.http.get<Order[]>(this.urlBase + 'items/management/get-order-lines/' + id);
+    return this.http.get<Order[]>(this.urlBase + 'items/management/get-order-lines/' + id, {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+        'Content-Type': 'application/json'
+      })
+    });
   }
 
   updateOrder(clientInfo, orderLines) {
@@ -73,11 +84,21 @@ export class OrderManagmentService {
       clienDetails: clientInfo,
       orderDetails: _orderDetails
     };
-    return this.http.post(this.urlBase + 'items/management/update-order', newOrder);
+    return this.http.post(this.urlBase + 'items/management/update-order', newOrder, {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+        'Content-Type': 'application/json'
+      })
+    });
   }
 
   getStatuses() {
-    return this.http.get<Statuses>(this.urlBase + 'items/management/get-statuses');
+    return this.http.get<Statuses>(this.urlBase + 'items/management/get-statuses', {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+        'Content-Type': 'application/json'
+      })
+    });
   }
 
 }

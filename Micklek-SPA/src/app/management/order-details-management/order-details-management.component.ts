@@ -43,6 +43,9 @@ export class OrderDetailsManagementComponent implements OnInit {
 
     this.orderManagementService.getOrderLines(orderNumber).subscribe(data => {
       this.orderLines = data;
+    }, error => {
+      this.alertify.error('Unauthorized');
+      this.router.navigate(['/login']);
     });
 
     this.orderHeaders = this.orderManagementService.getOrderHeader(orderNumber);
@@ -127,7 +130,7 @@ export class OrderDetailsManagementComponent implements OnInit {
   }
 
   openLg(content) {
-    if (this.items == undefined) {
+    if (this.items === undefined) {
       this.itemService.getItems().subscribe(data => {
         this.items = data;
       });

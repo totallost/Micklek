@@ -1,10 +1,24 @@
 <nav class="navbar my-navbar">
     <div class="container-fluid">
       <div class="navbar-header">
-          <button class="btn btn-primery" (click)="collapse()">
+          <button class="btn btn-outline-light" (click)="collapse()">
             <i class="fa fa-shopping-basket"></i>
             <span class="badge badge-light" *ngIf="totalItems>0" >{{totalItems}}</span>
           </button>
+      </div>
+      <div class="btn-group" dropdown *ngIf="loggedin()">
+        <button id="button-basic" dropdownToggle type="button" class="btn btn-outline-light dropdown-toggle"
+                aria-controls="dropdown-basic">
+          Button dropdown <span class="caret"></span>
+        </button>
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+            role="menu" aria-labelledby="button-basic">
+          <li role="menuitem"><a class="dropdown-item" [routerLink]="['/']">Store</a></li>
+          <li role="menuitem"><a class="dropdown-item" [routerLink]="['/orders-management']">Orders Management</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#">Items Management</a></li>
+          <li class="divider dropdown-divider"></li>
+          <li role="menuitem"><a class="dropdown-item" (click)="logout()" style="cursor: pointer">Logout</a></li>
+        </ul>
       </div>
       <img src="../../assets/images/logo.png">
     </div>

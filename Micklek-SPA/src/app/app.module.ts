@@ -16,11 +16,21 @@ import { CustomerDetailsComponent } from './customer-details/customer-details.co
 import { ReactiveFormsModule } from '@angular/forms';
 import { OrderDoneComponent } from './order-done/order-done.component';
 import { OrdersManagementComponent } from './management/orders-management/orders-management.component';
-import { AuthManagementComponent } from './management/auth-management/auth-management.component';
 import { OrderCardComponent } from './management/order-card/order-card.component';
 import { OrderDetailsManagementComponent } from './management/order-details-management/order-details-management.component';
 import { AddItemComponent } from './management/add-item/add-item.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LoginComponent } from './login/login.component';
+import { OrderManagmentService } from './services/order-managment.service';
+import { AuthService } from './services/auth.service';
+import { AuthGuard } from './guards/auth.guard';
+import { TestComponent } from './management/test/test.component';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { JwtModule } from '@auth0/angular-jwt';
+
+export function tokenGetter() {
+  return sessionStorage.getItem('token');
+}
 
 @NgModule({
   declarations: [
@@ -33,10 +43,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CustomerDetailsComponent,
     OrderDoneComponent,
     OrdersManagementComponent,
-    AuthManagementComponent,
     OrderCardComponent,
     OrderDetailsManagementComponent,
     AddItemComponent,
+    LoginComponent,
+    TestComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,11 +55,22 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HttpClientModule,
     ReactiveFormsModule,
     NgbModule,
+    BsDropdownModule.forRoot(),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:5001'],
+        blacklistedRoutes: ['localhost:5001/api/auth']
+      }
+    })
   ],
   providers: [
     ItemService,
     OrderService,
     AlertifyService,
+    OrderManagmentService,
+    AuthService,
+    AuthGuard,
   ],
   bootstrap: [AppComponent]
 })
