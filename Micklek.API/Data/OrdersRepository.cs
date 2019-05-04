@@ -24,6 +24,11 @@ namespace Micklek.API.Data
             _context.Remove(entity);
         }
 
+        public async Task<IEnumerable<Item>> GetActiveItems()
+        {
+            return await _context.Items.Where(x => x.IsActive == true).ToListAsync();
+        }
+
         public async Task<Item> GetItem(int id)
         {
             return await _context.Items.SingleOrDefaultAsync(i => i.Id ==id);

@@ -10,6 +10,7 @@ import { OrderDetailsManagementComponent } from './management/order-details-mana
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guards/auth.guard';
 import { TestComponent } from './management/test/test.component';
+import { ItemsManagementComponent } from './management/items-management/items-management.component';
 
 const routes: Routes = [
   {path: '', component: ShopComponent},
@@ -25,6 +26,7 @@ const routes: Routes = [
     children: [
       { path: 'orders-management', component: OrdersManagementComponent},
       { path: 'orders-management/:id', component: OrderDetailsManagementComponent},
+      { path: 'items-management', component: ItemsManagementComponent}
     ]
   },
   { path: '**', redirectTo: '', pathMatch: 'full'}

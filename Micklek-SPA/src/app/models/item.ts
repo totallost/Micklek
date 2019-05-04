@@ -4,4 +4,5 @@ export interface Item {
     price: number;
     photoUrl: string;
     description: string;
+    active: boolean;
 }

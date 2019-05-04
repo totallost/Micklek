@@ -7,5 +7,6 @@ namespace Micklek.API.Models
         public float Price { get; set; }
         public string PhotoUrl { get; set; }
         public string Description { get; set; }
+        public bool IsActive { get; set; }
     }
 }

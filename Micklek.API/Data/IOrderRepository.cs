@@ -15,6 +15,7 @@ namespace Micklek.API.Data
          Task<OrderHeader> GetOrderHeader(int id);
          Task<IEnumerable<OrderLine>> GetOrderLines(int id);
          Task<IEnumerable<Status>> GetStatuses();
+         Task<IEnumerable<Item>> GetActiveItems();
 
     }
 }

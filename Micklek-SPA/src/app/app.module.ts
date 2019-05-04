@@ -18,7 +18,6 @@ import { OrderDoneComponent } from './order-done/order-done.component';
 import { OrdersManagementComponent } from './management/orders-management/orders-management.component';
 import { OrderCardComponent } from './management/order-card/order-card.component';
 import { OrderDetailsManagementComponent } from './management/order-details-management/order-details-management.component';
-import { AddItemComponent } from './management/add-item/add-item.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './login/login.component';
 import { OrderManagmentService } from './services/order-managment.service';
@@ -27,6 +26,10 @@ import { AuthGuard } from './guards/auth.guard';
 import { TestComponent } from './management/test/test.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { JwtModule } from '@auth0/angular-jwt';
+import { ItemsManagementComponent } from './management/items-management/items-management.component';
+import { ItemCardManagementComponent } from './management/item-card-management/item-card-management.component';
+import { ItemsManagementService } from './services/items-management.service';
+import { EditItemComponent } from './management/edit-item/edit-item.component';
 
 export function tokenGetter() {
   return sessionStorage.getItem('token');
@@ -45,9 +48,11 @@ export function tokenGetter() {
     OrdersManagementComponent,
     OrderCardComponent,
     OrderDetailsManagementComponent,
-    AddItemComponent,
     LoginComponent,
     TestComponent,
+    ItemsManagementComponent,
+    ItemCardManagementComponent,
+    EditItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,6 +76,7 @@ export function tokenGetter() {
     OrderManagmentService,
     AuthService,
     AuthGuard,
+    ItemsManagementService,
   ],
   bootstrap: [AppComponent]
 })

@@ -3,14 +3,16 @@ using System;
 using Micklek.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Micklek.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190504083621_addIsActiveColumnToItems")]
+    partial class addIsActiveColumnToItems
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,8 +24,6 @@ namespace Micklek.API.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description");
-
-                    b.Property<bool>("IsActive");
 
                     b.Property<string>("Name");
 

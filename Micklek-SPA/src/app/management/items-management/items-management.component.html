@@ -1,0 +1,23 @@
+<div class="container mt-4 items-container">
+  <div>
+      <button type="button" class="btn btn-outline-success" (click)="openEditItem(content)">Add New Item</button>
+  </div>
+  <div *ngFor="let item of items">
+    <app-item-card-management [item]="item" id="{{item.id}}" (click)="openEditItem(content, item)"></app-item-card-management>
+  </div>
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Edit Item</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>{{chosenItem.id}}</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </ng-template>

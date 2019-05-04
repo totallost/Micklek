@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class NavComponent implements OnInit {
   totalItems = 0;
 
-  constructor(private appComponent: AppComponent, private orderService: OrderService, 
+  constructor(private appComponent: AppComponent, private orderService: OrderService,
     private auth: AuthService, private router: Router) { }
 
   ngOnInit() {

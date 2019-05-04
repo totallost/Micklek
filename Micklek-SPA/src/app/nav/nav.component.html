@@ -15,7 +15,7 @@
             role="menu" aria-labelledby="button-basic">
           <li role="menuitem"><a class="dropdown-item" [routerLink]="['/']">Store</a></li>
           <li role="menuitem"><a class="dropdown-item" [routerLink]="['/orders-management']">Orders Management</a></li>
-          <li role="menuitem"><a class="dropdown-item" href="#">Items Management</a></li>
+          <li role="menuitem"><a class="dropdown-item" [routerLink]="['/items-management']">Items Management</a></li>
           <li class="divider dropdown-divider"></li>
           <li role="menuitem"><a class="dropdown-item" (click)="logout()" style="cursor: pointer">Logout</a></li>
         </ul>

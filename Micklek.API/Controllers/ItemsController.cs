@@ -29,7 +29,7 @@ namespace Micklek.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllItems()
         {
-            var items = await _repo.GetItems();
+            var items = await _repo.GetActiveItems();
 
             return Ok(items);
         }
