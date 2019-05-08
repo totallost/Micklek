@@ -15,7 +15,7 @@
       </button>
     </div>
     <div class="modal-body">
-      <p>{{chosenItem.id}}</p>
+      <app-edit-item [item]="chosenItem"></app-edit-item>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>

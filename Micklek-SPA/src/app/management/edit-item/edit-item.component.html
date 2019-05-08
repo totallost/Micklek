@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <form class="form-group" [formGroup]="itemsForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label for="name">Items Name:</label>
+                    <input type="text" formControlName="name" id="name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="price">Price:</label>
+                    <input type="number" formControlName="price" id="Price" class="form-control">
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" formControlName="active" id="active" class="form-check-input">
+                    <label class="form-check-label" for="active">Active?</label>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm">
+            <p>hihihihihi</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button type="submit">Save</button>
+        </div>
+    </div>
+</div>
