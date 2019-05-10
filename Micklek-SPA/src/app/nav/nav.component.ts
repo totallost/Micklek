@@ -11,11 +11,13 @@ import { Router } from '@angular/router';
 })
 export class NavComponent implements OnInit {
   totalItems = 0;
+  buttonDropdown: string;
 
   constructor(private appComponent: AppComponent, private orderService: OrderService,
     private auth: AuthService, private router: Router) { }
 
   ngOnInit() {
+    this.buttonDropdown = 'Orders Management';
     this.totalItems = 0;
     this.orderService.orderLines.subscribe(orders => {
       this.totalItems = 0;

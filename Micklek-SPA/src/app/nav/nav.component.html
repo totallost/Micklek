@@ -9,13 +9,13 @@
       <div class="btn-group" dropdown *ngIf="loggedin()">
         <button id="button-basic" dropdownToggle type="button" class="btn btn-outline-light dropdown-toggle"
                 aria-controls="dropdown-basic">
-          Button dropdown <span class="caret"></span>
+          {{buttonDropdown}} <span class="caret"></span>
         </button>
         <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
             role="menu" aria-labelledby="button-basic">
-          <li role="menuitem"><a class="dropdown-item" [routerLink]="['/']">Store</a></li>
-          <li role="menuitem"><a class="dropdown-item" [routerLink]="['/orders-management']">Orders Management</a></li>
-          <li role="menuitem"><a class="dropdown-item" [routerLink]="['/items-management']">Items Management</a></li>
+          <li role="menuitem"><a class="dropdown-item" [routerLink]="['/']" (click)="buttonDropdown='Store'">Store</a></li>
+          <li role="menuitem"><a class="dropdown-item" [routerLink]="['/orders-management']" (click)="buttonDropdown='Orders Management'">Orders Management</a></li>
+          <li role="menuitem"><a class="dropdown-item" [routerLink]="['/items-management']" (click)="buttonDropdown='Items Management'">Items Management</a></li>
           <li class="divider dropdown-divider"></li>
           <li role="menuitem"><a class="dropdown-item" (click)="logout()" style="cursor: pointer">Logout</a></li>
         </ul>
