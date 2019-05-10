@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Micklek.API.Data;
+using Micklek.API.Dtos;
+using Micklek.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -28,29 +30,42 @@ namespace Micklek.API.Controllers
             return Ok(items);
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        // PUT api/Item/5
+        [HttpPut("{id}"), Authorize]
+        public async Task<IActionResult> updateItem(int id, [FromBody]ItemsDto itemsDto)
         {
-            return "value";
+            var item = await _repo.GetItem(id);
+            if(itemsDto.name != null)
+            {
+                item.Name = itemsDto.name;
+                item.Price = itemsDto.Price;
+                item.Description = itemsDto.description;
+                item.IsActive = itemsDto.isActive;
+                if(await _repo.SaveAll())
+                {
+                    return Ok(item);
+                }
+            }
+            return BadRequest("unable to update the item");
         }
 
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPost("Add")]
+        public async Task<IActionResult> addNewItem(ItemsDto itemsDto)
         {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            var newItem = new Item {
+                Name = itemsDto.name,
+                Price = itemsDto.Price,
+                Description = itemsDto.description,
+                PhotoPublicName = itemsDto.PhotoPublicName,
+                PhotoUrl = itemsDto.PhotoUrl,
+                IsActive = itemsDto.isActive
+            };
+            _repo.Add(newItem);
+            if (await _repo.SaveAll())
+            {
+                return Ok(new { id = newItem.Id });
+            }
+            throw new Exception("Failed to Create a new item");
         }
     }
 }

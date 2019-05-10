@@ -1,0 +1,12 @@
+.img-fluid {
+    height: 300px;
+    widows: 300px;
+}
+
+span {
+    color: red;
+}
+
+input.ng-invalid.ng-touched {
+    border: 1px red solid;
+}

@@ -24,4 +24,41 @@ export class ItemService {
       })
     });
   }
+
+  deleteItemPhoto(id: string) {
+    return this.http.delete(this.urlBase + 'photos/' + id, {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+        'Content-Type': 'application/json'
+      })
+    });
+  }
+
+  uploadPhoto(formData) {
+    return this.http.post(this.urlBase + 'photos/add', formData, {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+        // 'Content-Type': 'multipart/form-data',
+        'Accept': 'application/json'
+      })
+    });
+  }
+
+  updateItemDetails(id: string, item: Item) {
+    return this.http.put<Item>(this.urlBase + 'item/' + id, item, {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+        'Content-Type': 'application/json'
+      })
+    });
+  }
+
+  addNewItem(item: Item) {
+    return this.http.post<Item>(this.urlBase + 'item/add', item, {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+        'Content-Type': 'application/json'
+      })
+    });
+  }
 }

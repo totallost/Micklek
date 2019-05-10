@@ -27,6 +27,20 @@ export class ItemsManagementComponent implements OnInit {
     console.log('hi');
   }
 
+  addNewItem(content) {
+    let newItem: Item;
+    newItem = {
+      id: 0,
+      name: '',
+      description: '',
+      price: 0,
+      photoPublicName: null,
+      photoUrl: null,
+      isActive: false
+    };
+    this.openEditItem(content, newItem);
+  }
+
   openEditItem(content, item: Item) {
     this.chosenItem = item;
     this.modalService.open(content, { size: 'lg' });

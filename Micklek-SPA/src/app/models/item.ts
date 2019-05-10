@@ -5,4 +5,5 @@ export interface Item {
     photoUrl: string;
     description: string;
     isActive: boolean;
+    photoPublicName: string;
 }

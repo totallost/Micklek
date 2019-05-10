@@ -8,6 +8,7 @@ using Micklek.API.Data;
 using Micklek.API.Dtos;
 using Micklek.API.Helpers;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -35,11 +36,11 @@ namespace Micklek.API.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> AddPhotoToItem([FromForm]int itemId, [FromForm]PhotoForCreationDto photoForCreationDto)
+        public async Task<IActionResult> AddPhotoToItem([FromForm]int itemId, [FromForm]IFormFile photoForCreationDto)
         {
             var item = await _repo.GetItem(itemId);
 
-            var file = photoForCreationDto.File;
+            var file = photoForCreationDto;
             var uploadResults = new ImageUploadResult();
 
             if (file.Length > 0)
@@ -60,7 +61,7 @@ namespace Micklek.API.Controllers
                 }
             }
             //delete the old photo of the Item from the cloud
-            if(item.PhotoPublicName != null)
+            if (item.PhotoPublicName != null && item.PhotoPublicName != "")
             {
                 var deleteParams = new DeletionParams(item.PhotoPublicName);
                 var result = _cloudinary.Destroy(deleteParams);
@@ -69,11 +70,39 @@ namespace Micklek.API.Controllers
             item.PhotoUrl = uploadResults.Uri.ToString();
             item.PhotoPublicName = uploadResults.PublicId.ToString();
 
-            if(await _repo.SaveAll())
+            if (await _repo.SaveAll())
             {
                 return Ok(item.PhotoUrl);
             }
+            else
+            {
+                // delete the photo from cloudinary in case failed to save to DB
+                if (uploadResults.PublicId.Length == 0)
+                {
+                    var deleteParams = new DeletionParams(uploadResults.PublicId.ToString());
+                    var result = _cloudinary.Destroy(deleteParams);
+                }
+            }
             return BadRequest("Could not add the photo");
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteItemPhoto(int id)
+        {
+            var item = await _repo.GetItem(id);
+            item.PhotoUrl = null;
+            if (item.PhotoPublicName != null)
+            {
+                var deleteParams = new DeletionParams(item.PhotoPublicName);
+                var result = _cloudinary.Destroy(deleteParams);
+                item.PhotoPublicName = null;
+            }
+            if (await _repo.SaveAll())
+            {
+                return Ok();
+            }
+            return BadRequest("Could not delete the Photo");
+
         }
     }
 }

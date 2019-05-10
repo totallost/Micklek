@@ -1,28 +1,43 @@
 <div class="container">
     <div class="row">
         <div class="col-sm">
-            <form class="form-group" [formGroup]="itemsForm" (ngSubmit)="onSubmit()">
+            <form class="form-group" [formGroup]="itemsForm" (ngSubmit)="onSubmit(item)">
                 <div class="form-group">
                     <label for="name">Items Name:</label>
                     <input type="text" formControlName="name" id="name" class="form-control">
+                    <span *ngIf="!itemsForm.get('name').valid && itemsForm.get('name').touched">Name is requierd</span>
                 </div>
                 <div class="form-group">
                     <label for="price">Price:</label>
                     <input type="number" formControlName="price" id="Price" class="form-control">
+                    <span *ngIf="!itemsForm.get('price').valid && itemsForm.get('price').touched">Price is
+                        requierd</span>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <input type="text" formControlName="description" id="description" class="form-control">
                 </div>
                 <div class="form-check">
                     <input type="checkbox" formControlName="active" id="active" class="form-check-input">
                     <label class="form-check-label" for="active">Active?</label>
                 </div>
+                <div class="row">
+                    <div class="col">
+                        <button class="btn btn-outline-primary" type="submit">Save</button>
+                    </div>
+                </div>
             </form>
         </div>
         <div class="col-sm">
-            <p>hihihihihi</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <button type="submit">Save</button>
+            <div class="row">
+                <img src="{{item.photoUrl || '../../assets/images/logo.png'}}" class="img-fluid">
+                <input type="file" (change)="fileChange($event, item)" placeholder="Upload file"
+                    accept="image/png, image/jpeg, image/jpg" class="form-control-file form-control-lg">
+            </div>
+            <div class="row">
+                <button class="btn btn-outline-danger" (click)="deletePhoto(item.id, item)"
+                    [disabled]="item.photoUrl==null"><i class="fa fa-trash-o"></i></button>
+            </div>
         </div>
     </div>
 </div>
