@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Micklek.API.Data;
 using Micklek.API.Dtos;
+using Micklek.API.Helpers;
 using Micklek.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

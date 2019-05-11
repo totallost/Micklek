@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Micklek.API.Data;
 using Micklek.API.Dtos;
+using Micklek.API.Helpers;
 using Micklek.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,8 +27,10 @@ namespace Micklek.API.Controllers
         [HttpGet, Authorize]
         public async Task<IActionResult> GetAllItems()
         {
+            SendEmail.EmailParameters(new EmailMessage());
             var items = await _repo.GetItems();
             return Ok(items);
+            
         }
 
         // PUT api/Item/5
