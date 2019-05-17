@@ -113,6 +113,7 @@
           </tr>
         </tbody>
       </table>
+      <button class="btn btn-outline-success" (click)="openLg(content)" [disabled]="!customerDetailsForm.valid" *ngIf="orderLines?.length<=0">add Item</button>
     </div>
   </div>
   <ng-template #content let-modal>

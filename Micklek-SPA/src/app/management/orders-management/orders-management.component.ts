@@ -32,6 +32,7 @@ export class OrdersManagementComponent implements OnInit {
     } else {
       this.orderManagmentService.orderHeaders.subscribe(allOrders => {
         this.orderHeaders = allOrders;
+        console.log('subscribe all orders');
       });
     }
   }

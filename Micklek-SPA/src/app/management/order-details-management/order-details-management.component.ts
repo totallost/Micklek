@@ -19,6 +19,7 @@ import { ItemService } from 'src/app/services/item.service';
 export class OrderDetailsManagementComponent implements OnInit {
 
   orderHeaders: OrderHeader;
+  orderHeadersTest: any;
 
   customerDetailsForm: FormGroup;
 
@@ -39,6 +40,7 @@ export class OrderDetailsManagementComponent implements OnInit {
     let orderNumber: number;
     this.route.params.subscribe(idNumber => {
       orderNumber = idNumber.id;
+      this.orderHeadersTest = idNumber;
     });
 
     this.orderManagementService.getOrderLines(orderNumber).subscribe(data => {
@@ -122,6 +124,7 @@ export class OrderDetailsManagementComponent implements OnInit {
 
     this.orderManagementService.updateOrder(this.orderHeaderUpdate, this.orderLines).subscribe(() => {
       this.alertify.success('order sent successfuly');
+      this.updateOrdersFromService(+this.orderHeaders.id, this.orderHeaders);
       this.orderManagementService.sortOrdersByStatus();
       this.router.navigate(['/orders-management']);
     }, () => {
@@ -148,6 +151,10 @@ export class OrderDetailsManagementComponent implements OnInit {
     };
     this.orderLines.push(newOrderLine);
     this.totalSumCalc();
+  }
+
+  updateOrdersFromService(id: number, orderHeaders: OrderHeader) {
+    this.orderManagementService.initOrderHeaders();
   }
 
 }

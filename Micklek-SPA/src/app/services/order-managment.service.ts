@@ -80,9 +80,10 @@ export class OrderManagmentService {
   updateOrder(clientInfo, orderLines) {
     let _orderDetails: any = {};
     _orderDetails = orderLines;
+
     const newOrder = {
       clienDetails: clientInfo,
-      orderDetails: _orderDetails
+      orderDetails: orderLines
     };
     return this.http.post(this.urlBase + 'orders/management/update-order', newOrder, {
       headers: new HttpHeaders({
