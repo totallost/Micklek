@@ -19,12 +19,9 @@ namespace Micklek.API.Controllers
     {
         private readonly IOrderRepository _repo;
 
-        private readonly IMapper _mapper;
-
-        public ItemsController(IOrderRepository repo, IMapper mapper)
+        public ItemsController(IOrderRepository repo)
         {
             _repo = repo;
-            _mapper = mapper;
         }
 
         [HttpGet]

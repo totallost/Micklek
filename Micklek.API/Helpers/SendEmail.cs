@@ -49,9 +49,9 @@ namespace Micklek.API.Helpers
             });
 
             // Define parameters of request.
-            UsersResource.LabelsResource.ListRequest request = service.Users.Labels.List("me");
-            request.Execute();
-            Console.WriteLine(request);
+            // UsersResource.LabelsResource.ListRequest request = service.Users.Labels.List("me");
+            // request.Execute();
+            // Console.WriteLine(request);
 
             var mailMessage = new System.Net.Mail.MailMessage();
             mailMessage.From = new System.Net.Mail.MailAddress(email.FromAddress);
@@ -76,8 +76,12 @@ namespace Micklek.API.Helpers
 
             UsersResource.MessagesResource.SendRequest request2 = service.Users.Messages.Send(gmailMessage, "Micklek.mx@gmail.com");
             
-
-            request2.Execute();
+            try
+            {
+                request2.Execute();
+            }
+            catch{}
+            
 
         }
         public static string Encode(string text)
