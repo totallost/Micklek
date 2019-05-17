@@ -22,53 +22,6 @@ namespace Micklek.API.Controllers
             _repo = repo;
 
         }
-        // GET api/values
-        
-        [HttpGet, Authorize]
-        public async Task<IActionResult> GetAllItems()
-        {
-            SendEmail.EmailParameters(new EmailMessage());
-            var items = await _repo.GetItems();
-            return Ok(items);
-            
-        }
-
-        // PUT api/Item/5
-        [HttpPut("{id}"), Authorize]
-        public async Task<IActionResult> updateItem(int id, [FromBody]ItemsDto itemsDto)
-        {
-            var item = await _repo.GetItem(id);
-            if(itemsDto.name != null)
-            {
-                item.Name = itemsDto.name;
-                item.Price = itemsDto.Price;
-                item.Description = itemsDto.description;
-                item.IsActive = itemsDto.isActive;
-                if(await _repo.SaveAll())
-                {
-                    return Ok(item);
-                }
-            }
-            return BadRequest("unable to update the item");
-        }
-
-        [HttpPost("Add")]
-        public async Task<IActionResult> addNewItem(ItemsDto itemsDto)
-        {
-            var newItem = new Item {
-                Name = itemsDto.name,
-                Price = itemsDto.Price,
-                Description = itemsDto.description,
-                PhotoPublicName = itemsDto.PhotoPublicName,
-                PhotoUrl = itemsDto.PhotoUrl,
-                IsActive = itemsDto.isActive
-            };
-            _repo.Add(newItem);
-            if (await _repo.SaveAll())
-            {
-                return Ok(new { id = newItem.Id });
-            }
-            throw new Exception("Failed to Create a new item");
-        }
+    
     }
 }

@@ -70,11 +70,11 @@ export class OrderService {
       clienDetails: clientInfo,
       orderDetails: _orderDetails
     };
-    return this.http.post(this.urlBase + 'items/details/sendOrder', newOrder);
+    return this.http.post(this.urlBase + 'orders/details/sendOrder', newOrder);
   }
 
   getOrderHeaders() {
-    return this.http.get<OrderHeader[]>(this.urlBase + 'items/management/get-order-headers');
+    return this.http.get<OrderHeader[]>(this.urlBase + 'orders/management/get-order-headers');
   }
 
 }

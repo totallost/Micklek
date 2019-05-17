@@ -3,12 +3,12 @@
       <h6 class="card-title text-center mb-1">
         Order Number:{{orderHeader?.id}}
         <br>
-        Client: {{orderHeader?.clientFirstName}} {{orderHeader?.clientSureName}}
+        Client Name: {{orderHeader?.clientFirstName}} {{orderHeader?.clientSureName}}
       </h6>
       <p class="card-text text-muted text-center">
-        Date Created: {{orderHeader?.dateCreation | date:'yyyy-MM-dd'}}
+        Date Created: {{orderHeader?.dateCreation | date:'dd/MM/yyyy'}}
         <br>
-        To Date:{{orderHeader?.dateTarget | date:'yyyy-MM-dd'}}
+        To Date:{{orderHeader?.dateTarget | date:'dd/MM/yyyy'}}
       </p>
     </div>
   </div>

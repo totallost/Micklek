@@ -17,7 +17,7 @@ export class ItemService {
   }
 
   getAllItems() {
-    return this.http.get<Item[]>(this.urlBase + 'item', {
+    return this.http.get<Item[]>(this.urlBase + 'items/all', {
       headers: new HttpHeaders({
         'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
         'Content-Type': 'application/json'
@@ -45,7 +45,7 @@ export class ItemService {
   }
 
   updateItemDetails(id: string, item: Item) {
-    return this.http.put<Item>(this.urlBase + 'item/' + id, item, {
+    return this.http.put<Item>(this.urlBase + 'items/' + id, item, {
       headers: new HttpHeaders({
         'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
         'Content-Type': 'application/json'
@@ -54,7 +54,7 @@ export class ItemService {
   }
 
   addNewItem(item: Item) {
-    return this.http.post<Item>(this.urlBase + 'item/add', item, {
+    return this.http.post<Item>(this.urlBase + 'items/add', item, {
       headers: new HttpHeaders({
         'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
         'Content-Type': 'application/json'

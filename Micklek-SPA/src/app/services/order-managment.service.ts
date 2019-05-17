@@ -27,7 +27,7 @@ export class OrderManagmentService {
 
   getOrderHeaders() {
     this.initOrderHeaders();
-    return this.http.get<OrderHeader[]>(this.urlBase + 'items/management/get-order-headers', {
+    return this.http.get<OrderHeader[]>(this.urlBase + 'orders/management/get-order-headers', {
       headers: new HttpHeaders({
         'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
         'Content-Type': 'application/json'
@@ -69,7 +69,7 @@ export class OrderManagmentService {
   }
 
   getOrderLines(id: number) {
-    return this.http.get<Order[]>(this.urlBase + 'items/management/get-order-lines/' + id, {
+    return this.http.get<Order[]>(this.urlBase + 'orders/management/get-order-lines/' + id, {
       headers: new HttpHeaders({
         'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
         'Content-Type': 'application/json'
@@ -84,7 +84,7 @@ export class OrderManagmentService {
       clienDetails: clientInfo,
       orderDetails: _orderDetails
     };
-    return this.http.post(this.urlBase + 'items/management/update-order', newOrder, {
+    return this.http.post(this.urlBase + 'orders/management/update-order', newOrder, {
       headers: new HttpHeaders({
         'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
         'Content-Type': 'application/json'
@@ -93,7 +93,7 @@ export class OrderManagmentService {
   }
 
   getStatuses() {
-    return this.http.get<Statuses>(this.urlBase + 'items/management/get-statuses', {
+    return this.http.get<Statuses>(this.urlBase + 'orders/management/get-statuses', {
       headers: new HttpHeaders({
         'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
         'Content-Type': 'application/json'
