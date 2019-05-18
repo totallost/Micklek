@@ -38,7 +38,13 @@ export class CheckoutComponent implements OnInit {
   }
 
   changeAmount(line, amount) {
-    this.orderLinesCheckout[line - 1].amount = amount;
+    // this.orderLinesCheckout[line - 1].amount = amount;
+    if (amount > 0) {
+      this.orderService.addLine(this.orderLinesCheckout[line - 1].item);
+    } else {
+      this.orderService.decAmount(this.orderLinesCheckout[line - 1].item);
+    }
+
     this.totalSumCalc();
   }
 

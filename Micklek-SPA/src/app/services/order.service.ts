@@ -42,6 +42,21 @@ export class OrderService {
     this.itemExist = false;
   }
 
+  decAmount(item: Item) {
+    this.orderLines.subscribe(orderLine => {
+      this.orderLine = orderLine;
+    });
+    if (this.orderLine) {
+      for (let i = 0; this.orderLine.length > i; i++) {
+        if (this.orderLine[i].item === item) {
+          this.orderLine[i].amount--;
+          this.orderLines.next(this.orderLine.slice());
+          this.itemExist = true;
+        }
+      }
+    }
+  }
+
   removeLine(line: number) {
     this.orderLine.splice(line - 1 , 1);
     for (let i = 0; this.orderLine.length > i; i++) {

@@ -18,9 +18,9 @@
           <td>{{orderLine.lineNumber}}</td>
           <td>{{orderLine.item.name}}</td>
           <td>
-            <i class="fa fa-minus" *ngIf="orderLine.amount>1" style="cursor: pointer" (click)="changeAmount(orderLine.lineNumber, orderLine.amount-1)"></i> 
+            <i class="fa fa-minus" *ngIf="orderLine.amount>1" style="cursor: pointer" (click)="changeAmount(orderLine.lineNumber, -1)"></i> 
             {{orderLine.amount}} 
-            <i class="fa fa-plus" *ngIf="orderLine.amount<999" style="cursor: pointer" (click)="changeAmount(orderLine.lineNumber, orderLine.amount+1)"></i>
+            <i class="fa fa-plus" *ngIf="orderLine.amount<999" style="cursor: pointer" (click)="changeAmount(orderLine.lineNumber, 1)"></i>
           </td>
           <td>{{orderLine.item.price}}$</td>
           <td><i class="fa fa-trash" (click)="delete(orderLine.lineNumber)" style="cursor: pointer;"></i></td>
