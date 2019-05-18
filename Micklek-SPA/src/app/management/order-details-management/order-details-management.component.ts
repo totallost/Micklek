@@ -142,15 +142,36 @@ export class OrderDetailsManagementComponent implements OnInit {
   }
 
   addItemToOrder(item: Item) {
-    const newOrderLine: Order = {
-      item: item,
-      amount: 1,
-      lineNumber: this.orderLines.length + 1,
-      orderId: this.orderHeaders.id,
-      itemId: item.id
-    };
-    this.orderLines.push(newOrderLine);
+    let itemExist = false;
+    for (let i = 0; this.orderLines.length > i; i++) {
+      if (this.orderLines[i].item.id === item.id) {
+        this.orderLines[i].amount++;
+        itemExist = true;
+      }
+    }
+    if (!itemExist) {
+      const newOrderLine: Order = {
+        item: item,
+        amount: 1,
+        lineNumber: this.orderLines.length + 1,
+        orderId: this.orderHeaders.id,
+        itemId: item.id
+      };
+      this.orderLines.push(newOrderLine);
+    }
     this.totalSumCalc();
+
+
+
+    // const newOrderLine: Order = {
+    //  item: item,
+    //  amount: 1,
+    //  lineNumber: this.orderLines.length + 1,
+    //  orderId: this.orderHeaders.id,
+    //  itemId: item.id
+    // };
+    // this.orderLines.push(newOrderLine);
+    // this.totalSumCalc();
   }
 
   updateOrdersFromService(id: number, orderHeaders: OrderHeader) {
