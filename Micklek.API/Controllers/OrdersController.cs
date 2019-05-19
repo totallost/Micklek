@@ -36,6 +36,13 @@ namespace Micklek.API.Controllers
             return Ok(orderHeaders);
         }
 
+        [HttpGet("management/get-order-header/{id}"), Authorize]
+        public async Task<IActionResult> GetOrderHeader(int id)
+        {
+            var orderHeader = await _repo.GetOrderHeader(id);
+            return Ok(orderHeader);
+        }
+
         //get order lines for management 
         [HttpGet("management/get-order-lines/{orderId}"), Authorize]
         public async Task<IActionResult> GetOrderLines(int orderId)

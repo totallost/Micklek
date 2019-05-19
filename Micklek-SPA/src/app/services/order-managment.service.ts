@@ -68,6 +68,15 @@ export class OrderManagmentService {
     }
   }
 
+  getOrderHeaderFromServer(orderNumber) {
+    return this.http.get<OrderHeader>(this.urlBase + 'orders/management/get-order-header/' + orderNumber, {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+        'Content-Type': 'application/json'
+      })
+    });
+  }
+
   getOrderLines(id: number) {
     return this.http.get<Order[]>(this.urlBase + 'orders/management/get-order-lines/' + id, {
       headers: new HttpHeaders({
@@ -83,7 +92,7 @@ export class OrderManagmentService {
 
     const newOrder = {
       clienDetails: clientInfo,
-      orderDetails: orderLines
+      orderDetails: _orderDetails
     };
     return this.http.post(this.urlBase + 'orders/management/update-order', newOrder, {
       headers: new HttpHeaders({

@@ -19,7 +19,6 @@ import { ItemService } from 'src/app/services/item.service';
 export class OrderDetailsManagementComponent implements OnInit {
 
   orderHeaders: OrderHeader;
-  orderHeadersTest: any;
 
   customerDetailsForm: FormGroup;
 
@@ -40,7 +39,6 @@ export class OrderDetailsManagementComponent implements OnInit {
     let orderNumber: number;
     this.route.params.subscribe(idNumber => {
       orderNumber = idNumber.id;
-      this.orderHeadersTest = idNumber;
     });
 
     this.orderManagementService.getOrderLines(orderNumber).subscribe(data => {
@@ -51,6 +49,16 @@ export class OrderDetailsManagementComponent implements OnInit {
     });
 
     this.orderHeaders = this.orderManagementService.getOrderHeader(orderNumber);
+
+    if (!this.orderHeaders) {
+      this.orderManagementService.getOrderHeaderFromServer(orderNumber).subscribe(result => {
+        this.orderHeaders = result;
+              this.orderManagementService.getStatuses().subscribe(resultStat => {
+        this.statuses = resultStat;
+        this.setOrderHeaderInfo();
+      });
+      });
+    }
 
     this.customerDetailsForm = new FormGroup({
       'firstName': new FormControl(null, Validators.required),
@@ -64,7 +72,9 @@ export class OrderDetailsManagementComponent implements OnInit {
     });
 
     this.customerDetailsForm.disable();
-    this.setOrderHeaderInfo();
+    if (!!this.orderHeaders) {
+      this.setOrderHeaderInfo();
+    }
   }
 
   setOrderHeaderInfo() {
