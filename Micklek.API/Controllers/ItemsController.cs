@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using Micklek.API.Data;
 using Micklek.API.Dtos;
 using Micklek.API.Helpers;

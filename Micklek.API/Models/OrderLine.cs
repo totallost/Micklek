@@ -9,5 +9,6 @@ namespace Micklek.API.Models
         public Item Item { get; set; }
         public int Amount { get; set; }
         public int LineNumber { get; set; }
+        public float LinePrice { get; set; }
     }
 }

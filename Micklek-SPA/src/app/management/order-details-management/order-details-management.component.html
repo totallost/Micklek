@@ -91,8 +91,8 @@
               <i class="fa fa-plus" *ngIf="orderLine.amount<999" style="cursor: pointer"
                 (click)="changeAmount(orderLine.lineNumber, orderLine.amount+1)"></i>
             </td>
-            <td>{{orderLine.item.price}}$</td>
-            <td>{{orderLine.amount*orderLine.item.price}}$</td>
+            <td>{{orderLine.linePrice}}$</td>
+            <td>{{orderLine.linePrice* orderLine.amount}}$</td>
             <td><i class="fa fa-trash" (click)="delete(orderLine.lineNumber)" style="cursor: pointer;"></i></td>
           </tr>
           <tr>

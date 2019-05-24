@@ -5,7 +5,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using AutoMapper;
 using Micklek.API.Data;
 using Micklek.API.Dtos;
 using Micklek.API.Models;

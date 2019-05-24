@@ -96,7 +96,7 @@ namespace Micklek.API.Controllers
                 DateCreation = DateTime.Now,
                 DateTarget = Convert.ToDateTime(clientDetails.DateReady),
                 StatusId = 1,
-                Address = clientDetails.Address
+                Address = clientDetails.Address               
             };
             OrderLine orderLine;
             List<OrderLine> orderLineCollection = new List<OrderLine>();
@@ -107,7 +107,8 @@ namespace Micklek.API.Controllers
                     ItemId = line.ItemId,
                     Item = line.Item,
                     Amount = line.Amount,
-                    LineNumber = line.LineNumber
+                    LineNumber = line.LineNumber,
+                    LinePrice = line.Item.Price * line.Amount
                 };
                 orderLineCollection.Add(orderLine);
             }
@@ -154,7 +155,7 @@ namespace Micklek.API.Controllers
                     _orderLine.Item.Price = item.Price;
                 }
                 totalItems += _orderLine.Amount;
-                totalPrice += (float)_orderLine.Amount * _orderLine.Item.Price;
+                totalPrice += (float)_orderLine.Amount * _orderLine.LinePrice;
             }
 
             var oldOrderHeader = await _repo.GetOrderHeader(clientDetails.Id);
@@ -186,7 +187,8 @@ namespace Micklek.API.Controllers
                     ItemId = line.ItemId,
                     Item = line.Item,
                     Amount = line.Amount,
-                    LineNumber = line.LineNumber
+                    LineNumber = line.LineNumber,
+                    LinePrice = line.LinePrice
                 };
                 orderLineCollection.Add(orderLine);
             }
