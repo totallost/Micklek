@@ -67,7 +67,6 @@ export class EditItemComponent implements OnInit {
 
   fileChange(event, item) {
     item.photoUrl = '../../assets/images/giphy.gif';
-    console.log('inFileChange');
     const fileList: FileList = event.target.files;
     if (fileList.length > 0) {
       const file: File = fileList[0];
@@ -84,7 +83,6 @@ export class EditItemComponent implements OnInit {
 
   deletePhoto(id: number, item: Item) {
     this.itemService.deleteItemPhoto(id.toString()).subscribe(resault => {
-      console.log(resault);
       item.photoUrl = '../../assets/images/logo.png';
       console.log('photo has been deleted');
     }, error => {

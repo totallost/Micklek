@@ -15,11 +15,8 @@ export class CheckoutComponent implements OnInit {
   constructor(private orderService: OrderService) { }
 
   ngOnInit() {
-    console.log('checkout');
     this.orderService.orderLines.subscribe(orderLines => {
       this.orderLinesCheckout = orderLines;
-      console.log(this.orderLinesCheckout);
-      console.log('inside');
       this.totalSumCalc();
     }, error => {
       console.log(error);

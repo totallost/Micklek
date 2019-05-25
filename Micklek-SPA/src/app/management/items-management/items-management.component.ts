@@ -19,12 +19,11 @@ export class ItemsManagementComponent implements OnInit {
   ngOnInit() {
     this.itemService.getAllItems().subscribe(items => {
       this.items = items;
-      console.log(items);
     });
   }
 
   check() {
-    console.log('hi');
+
   }
 
   addNewItem(content) {

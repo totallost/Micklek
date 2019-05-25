@@ -88,8 +88,6 @@ export class OrderDetailsManagementComponent implements OnInit {
       notes: this.orderHeaders.clientRemarks,
       status: this.orderHeaders.statusId,
     });
-    console.log(this.customerDetailsForm);
-    console.log(this.orderHeaders);
   }
 
   changeAmount(line, amount) {
